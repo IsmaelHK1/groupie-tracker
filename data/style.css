@@ -1,20 +1,31 @@
 body {
+    font-family: 'Noto Sans JP', sans-serif;
     background: rgb(73, 73, 73);
     margin: 0px;
     padding: 0px;
+    background-color: #222222;
 }
 
 header {
-    height: 80px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 80px;
     grid-gap: 10px;
-    grid-auto-rows: minmax(80px, auto);
+    text-align: center;
+    font-size : 50px;
+    font-family: cursive;
+    color:white;
+    width:100%;
+    background: rgb(73, 73, 73);
 }
 
 header .btn_filter {
     color: white;
     align-items: left;
+}
+
+header a {
+    text-align: left;
 }
 
 header .logo {
@@ -29,37 +40,11 @@ header .searchbar {
     grid-column: 2;
     grid-row: 1;
     margin: 20px;
-}
-
-h2 {
-    color: white;
-    font-family: 'Noto Sans JP', sans-serif;
-}
-
-img {
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
-    border-radius: 70px;
-    filter: brightness(0.85); 
-} 
-
-
-.cardArtist {
-    margin: 15px;
-    text-align: center;
-}
-
-
-.artistcliquable {
-    background: #222222;
-    display: flex;
-    flex-flow: wrap row;
-    justify-content: space-around;
-}
-
-a {
-    text-decoration: none;
+	border: none;
+	border-bottom: 1px solid white;
+	color: white;
+	background: rgb(73, 73, 73) 0% 0% no-repeat padding-box;
+    font-size: 25px;
 }
 
 footer{
@@ -68,4 +53,80 @@ footer{
     clear: both;
     position: relative;
     height: 40px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h2 {
+    color: white;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* page index */
+.artistcliquable {
+    background: #222222;
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: space-around;
+}
+
+.artistcliquable .cardArtist {
+    margin: 15px;
+    text-align: center;
+}
+
+.artistcliquable .cardArtist img {
+    margin: 0px;
+    padding: 0px;
+    max-width: 100%;
+    border-radius: 70px;
+    filter: brightness(0.85); 
+}
+
+/* page artists */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    min-height: 100vh;
+}
+
+.content .leftbox{
+    font-size: 18px;
+    border-right: 3px solid #383838;
+    text-align: center;
+    padding-bottom: 2.5rem;
+}
+
+.content .leftbox img{
+    display: grid;
+    grid-row: 1;
+    grid-column: 1;
+    border-radius: 30px;
+    width: auto;
+    height: auto;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.content .leftbox h1{
+    color: rgb(255, 255, 255);
+    grid-row: 2;
+    text-decoration: underline;
+}
+
+.content .leftbox .leftText {
+    color: rgb(255, 255, 255);
+}
+
+.content .rightbox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 15px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding-bottom: 2.5rem;
 }

@@ -5,97 +5,8 @@
     <title>Groupie Tracker</title>
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="/desc.css"> -->
-    <style>
-
-body{
-    font-family: 'Noto Sans JP', sans-serif;
-    padding: 0px;
-    margin: 0px;
-    background-color: #222222;
-}
-
-header{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column: 1;
-    grid-row: 1;
-    background: rgb(73, 73, 73);
-    text-align: center;
-    font-size : 50px;
-    font-family: cursive;
-    color:white;
-    width:100%;
-    height:80px;
-    text-decoration: underline;
-}
-
-header .logo {
-    grid-column: 1;
-    align-items: left;
-    max-height: 70px;
-    margin: 5px;
-}
-
-.content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    min-height: 100vh;
-}
-
-.leftbox{
-    font-size: 18px;
-    border-right: 3px solid #383838;
-    text-align: center;
-    padding-bottom: 2.5rem;
-}
-
-.leftbox img{
-    display: grid;
-    grid-row: 1;
-    grid-column: 1;
-    border-radius: 30px;
-    width: auto;
-    height: auto;
-    margin: auto;
-    
-}
-
-.leftbox h1{
-    color: rgb(255, 255, 255);
-    grid-row: 2;
-    text-decoration: underline;
-}
-
-.leftbox .paraG {
-    color: rgb(255, 255, 255);
-}
-
-.rightbox{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    font-size: 15px;
-    display: inline-block;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    padding-bottom: 2.5rem;
-}
-
-footer{
-    background: rgb(73, 73, 73);
-    text-align: center;
-    clear: both;
-    position: relative;
-    height: 40px;
-}
-
-header a {
-    text-align: left;
-}
-
-
-</style>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
 </head>
 <body>
 
@@ -110,9 +21,9 @@ header a {
         <img src="{{.Image}}">
 
         <h1>Date de création</h1>
-        <p class="paraG">{{.CreationDate}}</p>
+        <p class="leftText">{{.CreationDate}}</p>
         <h1>Date du premier album</h1>
-        <p class="paraG">{{.FirstAlbum}}</p>
+        <p class="leftText">{{.FirstAlbum}}</p>
     </div>
         
     <div class="rightbox">
