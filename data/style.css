@@ -19,11 +19,6 @@ header {
     background: rgb(73, 73, 73);
 }
 
-header .btn_filter {
-    color: white;
-    align-items: left;
-}
-
 header a {
     text-align: left;
 }
