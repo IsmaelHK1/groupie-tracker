@@ -1,0 +1,60 @@
+body {
+    background: #333;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    height: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(80px, auto);
+}
+
+header .btn_filter {
+    color: white;
+    align-items: left;
+}
+
+header .logo {
+    grid-column: 1;
+    grid-row: 1;
+    align-items: left;
+    max-height: 70px;
+    margin: 5px;
+}
+
+header .searchbar {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 20px;
+}
+
+h2 {
+    color: white;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+img {
+    margin: 0px;
+    padding: 0px;
+    max-width: 100%;
+    border-radius: 70px;
+    filter: brightness(0.85); 
+    /* box-shadow: 10px 10px 10px 10px white; */
+} 
+
+
+.cardArtist {
+    margin: 15px;
+    text-align: center;
+}
+
+
+.artistcliquable {
+    background: #222222;
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: space-around;
+}
