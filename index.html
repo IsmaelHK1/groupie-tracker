@@ -9,38 +9,53 @@
 </head>
 
 <body class="accueil">
-
     <header class="accueil">
-        <a href="#">
-            <img class="logo" src="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
-        </a>
-        <!-- <img id="filterImg" src="https://cdn.discordapp.com/attachments/785416497538269194/816030682073399356/file-svg-filter-icon-11562874693tj59mpz35p.png"> -->
-        <button id="filter">Filters</button>
+        <div id="divLogo">
+            <a href="#">
+                <img id="logo" src="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
+            </a>
+            <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
+        </div>
         <input class="searchbar"type="text" placeholder="Rechercher">
     </header>
 
     <div id="artistAndFilter">
         <div id="filterPage">
-            <p>membres</p>
-        <form method="POST">
-            <input name="test" type="range" value="1" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
-            <output>1</output>
-            <input type="submit">
-        </form>
-            <input type="range" value="7" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
-            <output>7</output>
-            <p>date de création</p>
-            <input type="range" value="1962" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
-            <output>1962</output>
-            <input type="range" value="2013" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
-            <output>2013</output>
-            <p>date de premier album</p>
-            <input type="range" value="1963" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
-            <output>1963</output>
-            <input type="range" value="2018" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
-            <output>2018</output>
-            <p>localisations</p>
-            <!-- <ul>
+            <div id="filterPage2">
+                <p>membres</p>
+                <div class="col1">
+                <form method="POST">
+                    <input name="test" type="range" value="1" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
+                    <output>1</output>
+                    <input type="submit">
+                </form>
+                </div>
+                <div class="col2">
+                    <input type="range" value="7" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
+                    <output>7</output>
+                </div>
+                <p>date de création</p>
+                <div class="col1">
+                    <input type="range" value="1962" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
+                    <output>1962</output>
+                </div>
+                <div class="col2">
+                    <input type="range" value="2013" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
+                    <output>2013</output>
+                </div>       
+
+                <p>date de premier album</p>
+                <div class="col1">
+                    <input type="range" value="1963" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
+                    <output>1963</output>
+                </div>
+                <div class="col2">
+                    <input type="range" value="2018" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
+                    <output>2018</output>
+                </div>
+            </div>
+            <!-- <p>localisations</p>
+            <ul>
                 <li>
 
                 </li>
@@ -59,7 +74,6 @@
                 <li><input type="checkbox" name="hongrie"><label>hongrie</label></li>
                 <li><input type="checkbox" name="indonésie"><label>indonésie</label></li>
             </ul> -->
-
         </div>
         <div id="artistcliquable">
         {{range .}}
@@ -87,10 +101,10 @@
     var divFilter = document.querySelector("#filterPage");
     bouton.addEventListener("click", openFilter);
     function openFilter() {
-        if (divFilter.style.display == "block") {
+        if (divFilter.style.display == "inline") {
             divFilter.style.display = "none"
         } else {
-            divFilter.style.display = "block"
+            divFilter.style.display = "inline"
         }
     }
 </script>
