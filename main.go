@@ -140,21 +140,20 @@ func main() {
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 
 		variable, _ := template.ParseFiles("index.html")
-		minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
-		maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
-		var TabToPrint []Artist
+		// var TabToPrint []Artist
+		fmt.Println(r.FormValue("OneMember"))
 
-		for i := 0; i < len(artists); i++ {
-			if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
-				TabToPrint = append(TabToPrint, artists[i])
-			}
-		}
+		// for i := 0; i < len(artists); i++ {
+		// 	if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
+		// 		TabToPrint = append(TabToPrint, artists[i])
+		// 	}
+		// }
 
-		if minMembers == 0 && maxMembers == 0 {
-			variable.Execute(w, artists)
-		} else {
-			variable.Execute(w, TabToPrint)
-		}
+		// if minMembers == 0 && maxMembers == 0 {
+		variable.Execute(w, artists)
+		// } else {
+		// variable.Execute(w, TabToPrint)
+		// }
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
