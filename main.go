@@ -27,7 +27,6 @@ type Artist struct {
 	TabRelation       OneRelation
 	TabIndexRelation  []string
 	TabLetterRelation [][]string
-	ToPrint           bool
 	// TabString []string
 }
 
@@ -138,35 +137,24 @@ func main() {
 
 	artists := parseArtsists()
 
-	
-
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		for i := 0; i < len(artists); i++ {
-			artists[i].ToPrint = true
-			fmt.Println(artists[i].ToPrint)
-		}
+
 		variable, _ := template.ParseFiles("index.html")
 		minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
 		maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
-		fmt.Println(minMembers)
-		fmt.Println(maxMembers)
+		var TabToPrint []Artist
 
 		for i := 0; i < len(artists); i++ {
 			if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
-				artists[i].ToPrint = true
-			} else {
-				artists[i].ToPrint = false
+				TabToPrint = append(TabToPrint, artists[i])
 			}
 		}
 
-		// for i := 0; i < len(artists); i++ {
-		// 	artists[i].ToPrint = true
-		// 	if len(artists[i].Members) != IDIsma {
-		// 		artists[i].ToPrint = true
-		// 	}
-		// }
-
-		variable.Execute(w, artists)
+		if minMembers == 0 && maxMembers == 0 {
+			variable.Execute(w, artists)
+		} else {
+			variable.Execute(w, TabToPrint)
+		}
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
@@ -178,7 +166,6 @@ func main() {
 		// Valeurs
 		artists[IdArtist].TabRelation = parseRelation(artists[IdArtist].Relations)
 		variable.Execute(w, artists[IdArtist])
-
 	})
 
 	fmt.Println("vas y le serv marche")

@@ -11,7 +11,7 @@
 <body class="accueil">
     <header class="accueil">
         <div id="divLogo">
-            <a href="#">
+            <a href="/groupie-tracker">
                 <img id="logo" src="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
             </a>
             <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
@@ -25,8 +25,8 @@
                 <p>membres</p>
                 <form method="POST">
                     <div class="col1">
-                        <!-- <input name="minMembers" type="number" value="1" min="1" max="7"> -->
-                        <input name="minMembers" type="range" value="1" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
+                        <input name="minMembers" type="number" value="1" min="1" max="7">
+                        <!-- <input name="minMembers" type="range" value="1" min="1" max="7" oninput="this.nextElementSibling.value = this.value"> -->
                         <output>1</output>
                     </div>
                     <div class="col2">
@@ -57,14 +57,12 @@
         </div>
         <div id="artistcliquable">
         {{range .}}
-            {{if .ToPrint}}
                 <a href="/groupie-tracker/{{.Id}}">
                     <div class="cardArtist" id="{{.Id}}">
                         <h2>{{.Name}}</h2>
                         <img src="{{.Image}}">
                     </div>
                 </a>
-            {{end}}
         {{end}}
         </div>
     </div>
