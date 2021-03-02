@@ -43,7 +43,6 @@
                     <input type="range" value="2013" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
                     <output>2013</output>
                 </div>       
-
                 <p>date de premier album</p>
                 <div class="col1">
                     <input type="range" value="1963" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
@@ -54,26 +53,6 @@
                     <output>2018</output>
                 </div>
             </div>
-            <!-- <p>localisations</p>
-            <ul>
-                <li>
-
-                </li>
-                <li><input type="checkbox" name="USA"><label>USA</label></li>
-                <li><input type="checkbox" name="japon"><label>japon</label></li>
-                <li><input type="checkbox" name="nouvelle zélande"><label>nouvelle zélande</label></li>
-                <li><input type="checkbox" name="mexique"><label>mexique</label></li>
-                <li><input type="checkbox" name="polynésie"><label>polynésie</label></li>
-                <li><input type="checkbox" name="nouvelle calédonie"><label>nouvelle calédonie</label></li>
-                <li><input type="checkbox" name="angleterre"><label>angleterre</label></li>
-                <li><input type="checkbox" name="suisse"><label>suisse</label></li>
-                <li><input type="checkbox" name="france"><label>france</label></li>
-                <li><input type="checkbox" name="australie"><label>australie</label></li>
-                <li><input type="checkbox" name="indonésie"><label>indonésie</label></li>
-                <li><input type="checkbox" name="slovaquie"><label>slovaquie</label></li>
-                <li><input type="checkbox" name="hongrie"><label>hongrie</label></li>
-                <li><input type="checkbox" name="indonésie"><label>indonésie</label></li>
-            </ul> -->
         </div>
         <div id="artistcliquable">
         {{range .}}
@@ -81,7 +60,6 @@
                 <a href="/groupie-tracker/{{.Id}}">
                     <div class="cardArtist" id="{{.Id}}">
                         <h2>{{.Name}}</h2>
-                        {{.ToPrint}}
                         <img src="{{.Image}}">
                     </div>
                 </a>

@@ -132,37 +132,32 @@ func parseRelation(url string) OneRelation {
 
 func main() {
 
-
 	fileServer := http.FileServer(http.Dir("./data"))
 	http.Handle("/style.css", fileServer)
 	http.Handle("/desc.css", fileServer)
 
 	artists := parseArtsists()
 
-			// for _, artistRange := range artists {
-			// }
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
 		IDIsma, _ := strconv.Atoi(r.FormValue("test"))
 
-		for i := 0; i < len(artists); i++{
-			if len(artists[i].Members) == IDIsma {
-				artists[i].ToPrint = true
-				fmt.Println(artists[i].Members)
-			} else {
-				artists[i].ToPrint = false
+		// for i := 0; i < len(artists); i++ {
+		// 	artists[i].ToPrint = true
+		// 	if len(artists[i].Members) != IDIsma {
+		// 		artists[i].ToPrint = true
+		// 	}
+		// }
+
+		if r.FormValue("test") != "Envoyer" {
+			for i := 0; i < len(artists); i++ {
+				if len(artists[i].Members) == IDIsma {
+					artists[i].ToPrint = true
+				} else {
+					artists[i].ToPrint = false
+				}
 			}
 		}
-		// Test pour les filtres
-		// if r.FormValue("test") != "645" {
-		// 	IDIsma, _ := strconv.Atoi(r.FormValue("test"))
-
-			// un for qui parcout tous les artists ofr index letter range ...
-			// un deuxieme for dedans : if idisma = nombre membres etc
-			// tab ou j add l id artist correspong a idisma
-			
-
-		// }
 
 		variable.Execute(w, artists)
 	})
