@@ -145,6 +145,9 @@ func main() {
 			artists[i].ToPrint = true
 			fmt.Println(artists[i].ToPrint)
 		}
+
+		//faire une fonction qui prend en parametre un tab et qui retourne un tab qui a tt sauf ce qui ne dois pas s'afficher 
+		//filter avec parametre tableau et fonction qui retourne un bool, si il est faux on lenleve sinon on le remet 
 		variable, _ := template.ParseFiles("index.html")
 		minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
 		maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
