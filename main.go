@@ -138,9 +138,26 @@ func main() {
 
 	artists := parseArtsists()
 
+	
+
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
+		for i := 0; i < len(artists); i++ {
+			artists[i].ToPrint = true
+			fmt.Println(artists[i].ToPrint)
+		}
 		variable, _ := template.ParseFiles("index.html")
-		IDIsma, _ := strconv.Atoi(r.FormValue("test"))
+		minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
+		maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
+		fmt.Println(minMembers)
+		fmt.Println(maxMembers)
+
+		for i := 0; i < len(artists); i++ {
+			if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
+				artists[i].ToPrint = true
+			} else {
+				artists[i].ToPrint = false
+			}
+		}
 
 		// for i := 0; i < len(artists); i++ {
 		// 	artists[i].ToPrint = true
@@ -148,16 +165,6 @@ func main() {
 		// 		artists[i].ToPrint = true
 		// 	}
 		// }
-
-		if r.FormValue("test") != "Envoyer" {
-			for i := 0; i < len(artists); i++ {
-				if len(artists[i].Members) == IDIsma {
-					artists[i].ToPrint = true
-				} else {
-					artists[i].ToPrint = false
-				}
-			}
-		}
 
 		variable.Execute(w, artists)
 	})
