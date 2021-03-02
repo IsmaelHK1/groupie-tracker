@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+
 	// "strings"
 	"strconv"
 )
@@ -26,6 +27,7 @@ type Artist struct {
 	TabRelation       OneRelation
 	TabIndexRelation  []string
 	TabLetterRelation [][]string
+	ToPrint           bool
 	// TabString []string
 }
 
@@ -43,11 +45,10 @@ type Relations struct {
 	Index []OneRelation
 }
 
-type OneRelation struct{
-	Id int
+type OneRelation struct {
+	Id             int
 	DatesLocations map[string][]string
 }
-
 
 // map de string d'interface
 
@@ -131,26 +132,51 @@ func parseRelation(url string) OneRelation {
 
 func main() {
 
+
 	fileServer := http.FileServer(http.Dir("./data"))
 	http.Handle("/style.css", fileServer)
 	http.Handle("/desc.css", fileServer)
-	
+
 	artists := parseArtsists()
-	
+
+			// for _, artistRange := range artists {
+			// }
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
+		IDIsma, _ := strconv.Atoi(r.FormValue("test"))
+
+		for i := 0; i < len(artists); i++{
+			if len(artists[i].Members) == IDIsma {
+				artists[i].ToPrint = true
+				fmt.Println(artists[i].Members)
+			} else {
+				artists[i].ToPrint = false
+			}
+		}
+		// Test pour les filtres
+		// if r.FormValue("test") != "645" {
+		// 	IDIsma, _ := strconv.Atoi(r.FormValue("test"))
+
+			// un for qui parcout tous les artists ofr index letter range ...
+			// un deuxieme for dedans : if idisma = nombre membres etc
+			// tab ou j add l id artist correspong a idisma
+			
+
+		// }
+
 		variable.Execute(w, artists)
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
 		ArtistPath := r.URL.Path[17:]
-		IdArtist, _ :=  strconv.Atoi(ArtistPath)
+		IdArtist, _ := strconv.Atoi(ArtistPath)
 		IdArtist--
 
 		// Valeurs
 		artists[IdArtist].TabRelation = parseRelation(artists[IdArtist].Relations)
 		variable.Execute(w, artists[IdArtist])
+
 	})
 
 	fmt.Println("vas y le serv marche")
@@ -158,5 +184,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-

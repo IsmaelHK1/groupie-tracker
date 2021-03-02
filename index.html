@@ -22,8 +22,11 @@
     <div id="artistAndFilter">
         <div id="filterPage">
             <p>membres</p>
-            <input type="range" value="1" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
+        <form method="POST">
+            <input name="test" type="range" value="1" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
             <output>1</output>
+            <input type="submit">
+        </form>
             <input type="range" value="7" min="1" max="7" oninput="this.nextElementSibling.value = this.value">
             <output>7</output>
             <p>date de création</p>
@@ -37,7 +40,7 @@
             <input type="range" value="2018" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
             <output>2018</output>
             <p>localisations</p>
-            <ul>
+            <!-- <ul>
                 <li>
 
                 </li>
@@ -55,19 +58,21 @@
                 <li><input type="checkbox" name="slovaquie"><label>slovaquie</label></li>
                 <li><input type="checkbox" name="hongrie"><label>hongrie</label></li>
                 <li><input type="checkbox" name="indonésie"><label>indonésie</label></li>
-            </ul>
+            </ul> -->
 
         </div>
-
         <div id="artistcliquable">
-            {{range .}}
+        {{range .}}
+            {{if .ToPrint}}
                 <a href="/groupie-tracker/{{.Id}}">
                     <div class="cardArtist" id="{{.Id}}">
                         <h2>{{.Name}}</h2>
+                        {{.ToPrint}}
                         <img src="{{.Image}}">
                     </div>
                 </a>
             {{end}}
+        {{end}}
         </div>
     </div>
 
