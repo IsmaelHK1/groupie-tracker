@@ -24,18 +24,41 @@ header {
     background: rgb(0,210,255);
 }
 
-header button {
-    background: rgb(0,210,255);
-}
-
-header a {
-    text-align: left;
-}
-
-header .logo {
+header #divLogo {
     grid-column: 1;
     grid-row: 1;
-    align-items: left;
+    /* display: flex;
+    flex-direction: row;
+    align-items: left; */
+}
+
+header #divLogo a {
+    text-align: left;
+    float: left;
+    padding-left: 20px;
+}
+
+header #divLogo i {
+    height: 100px;
+    width: 100px;
+    float: left;
+    padding-top: 15px;
+}
+
+header #divLogo #logo {
+    float: left;
+    max-height: 70px;
+    margin: 5px;
+}
+
+header #divLogo #filter {
+    float: left;
+    max-height: 70px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+header .filterImg {
     max-height: 70px;
     margin: 5px;
 }
@@ -77,10 +100,11 @@ h2 {
 
 #filterPage {
     border-right: 3px solid rgb(0,4,255);
+    display: none;
 }
 
 #filterPage2 {
-    display: none;
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     color: white;
 }
