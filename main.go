@@ -27,7 +27,6 @@ type Artist struct {
 	TabRelation       OneRelation
 	TabIndexRelation  []string
 	TabLetterRelation [][]string
-	ToPrint           bool
 	// TabString []string
 }
 
@@ -138,38 +137,21 @@ func main() {
 
 	artists := parseArtsists()
 
-	
-
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
-		for i := 0; i < len(artists); i++ {
-			artists[i].ToPrint = true
-			fmt.Println(artists[i].ToPrint)
-		}
-
-		//faire une fonction qui prend en parametre un tab et qui retourne un tab qui a tt sauf ce qui ne dois pas s'afficher 
-		//filter avec parametre tableau et fonction qui retourne un bool, si il est faux on lenleve sinon on le remet 
 		variable, _ := template.ParseFiles("index.html")
-		minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
-		maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
-		fmt.Println(minMembers)
-		fmt.Println(maxMembers)
+		var TabToPrint []Artist		
 
 		for i := 0; i < len(artists); i++ {
-			if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
-				artists[i].ToPrint = true
-			} else {
-				artists[i].ToPrint = false
+			if r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7  {
+				TabToPrint = append(TabToPrint, artists[i])
 			}
 		}
 
-		// for i := 0; i < len(artists); i++ {
-		// 	artists[i].ToPrint = true
-		// 	if len(artists[i].Members) != IDIsma {
-		// 		artists[i].ToPrint = true
-		// 	}
-		// }
-
+		if r.FormValue("OneMember") == "on" || r.FormValue("TwoMember") == "on" || r.FormValue("ThreeMember") == "on" || r.FormValue("FourMember") == "on" || r.FormValue("FiveMember") == "on" || r.FormValue("SixMember") == "on" || r.FormValue("SevenMember") == "on" {	
+			variable.Execute(w, TabToPrint)
+		} else {
 		variable.Execute(w, artists)
+		}
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
@@ -181,7 +163,6 @@ func main() {
 		// Valeurs
 		artists[IdArtist].TabRelation = parseRelation(artists[IdArtist].Relations)
 		variable.Execute(w, artists[IdArtist])
-
 	})
 
 	fmt.Println("vas y le serv marche")
