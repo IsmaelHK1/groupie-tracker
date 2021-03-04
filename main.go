@@ -139,19 +139,37 @@ func main() {
 
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
-		var TabToPrint []Artist		
+		var TabToPrint []Artist
 
+		// for i := 0; i < len(artists); i++ {
+		// 	if r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7  {
+		// 		TabToPrint = append(TabToPrint, artists[i])
+		// 	}
+		// }
+
+		// if r.FormValue("OneMember") == "on" || r.FormValue("TwoMember") == "on" || r.FormValue("ThreeMember") == "on" || r.FormValue("FourMember") == "on" || r.FormValue("FiveMember") == "on" || r.FormValue("SixMember") == "on" || r.FormValue("SevenMember") == "on" {
+		// 	variable.Execute(w, TabToPrint)
+		// } else {
+		// variable.Execute(w, artists)
+		// }
+
+		// fmt.Println(r.FormValue("minCrea"))
+		// fmt.Println(r.FormValue("minCrea"))
 		for i := 0; i < len(artists); i++ {
-			if r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7  {
+			if r.FormValue("minCrea") == "on" && len(artists[i].CreationDate) >= 1962 && r.FormValue("maxCrea") == "on" && len(artists[i].CreationDate) <= 2013 {
 				TabToPrint = append(TabToPrint, artists[i])
 			}
 		}
 
-		if r.FormValue("OneMember") == "on" || r.FormValue("TwoMember") == "on" || r.FormValue("ThreeMember") == "on" || r.FormValue("FourMember") == "on" || r.FormValue("FiveMember") == "on" || r.FormValue("SixMember") == "on" || r.FormValue("SevenMember") == "on" {	
+		if r.FormValue("minCrea") == "on" || r.FormValue("maxCrea") == "on" {
+			
 			variable.Execute(w, TabToPrint)
 		} else {
-		variable.Execute(w, artists)
+			variable.Execute(w, artists)
 		}
+		fmt.Println(TabToPrint)
+		// fmt.Println(r.FormValue("minCrea"))
+		// fmt.Println(r.FormValue("minCrea"))
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {

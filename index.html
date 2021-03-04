@@ -22,7 +22,7 @@
     <div id="artistAndFilter">
         <div id="filterPage">
             <div id="filterPage2">
-                <p>membres</p>
+                <!-- <p>membres</p>
                 <form method="GET">
                     <div class="col1">
                         <input type="checkbox" label="1" name="OneMember"> <label>1</label>
@@ -34,17 +34,20 @@
                         <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
                     </div>
                     <input type="submit">
-                </form>
-                <!-- <p>date de création</p>
+                </form> -->
+                <form method="GET">
+                <p>date de création</p>
                 <div class="col1">
-                    <input type="range" value="1962" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" name="minCrea" value="1962" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
                     <output>1962</output>
                 </div>
                 <div class="col2">
-                    <input type="range" value="2013" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" name="maxCrea" value="2013" min="1962" max="2013" oninput="this.nextElementSibling.value = this.value">
                     <output>2013</output>
-                </div>       
-                <p>date de premier album</p>
+                </div>
+                <input type="submit">
+                </form>       
+                <!-- <p>date de premier album</p>
                 <div class="col1">
                     <input type="range" value="1963" min="1963" max="2018" oninput="this.nextElementSibling.value = this.value">
                     <output>1963</output>
