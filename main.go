@@ -141,6 +141,9 @@ func main() {
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []Artist
 
+		test1, _ := strconv.Atoi(r.FormValue("minCrea"))
+		test2, _ := strconv.Atoi(r.FormValue("maxCrea"))
+
 		// for i := 0; i < len(artists); i++ {
 		// 	if r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7  {
 		// 		TabToPrint = append(TabToPrint, artists[i])
@@ -153,23 +156,50 @@ func main() {
 		// variable.Execute(w, artists)
 		// }
 
-		// fmt.Println(r.FormValue("minCrea"))
-		// fmt.Println(r.FormValue("minCrea"))
-		for i := 0; i < len(artists); i++ {
-			if r.FormValue("minCrea") == "on" && len(artists[i].CreationDate) >= 1962 && r.FormValue("maxCrea") == "on" && len(artists[i].CreationDate) <= 2013 {
-				TabToPrint = append(TabToPrint, artists[i])
-			}
-		}
+		// for i := 0; i < len(artists); i++ {
+		// 	if test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate {
+		// 		TabToPrint = append(TabToPrint, artists[i])
+		// 	}
+		// }
 
-		if r.FormValue("minCrea") == "on" || r.FormValue("maxCrea") == "on" {
-			
+		if r.FormValue("submit") == "Envoyer" {
+			for i := 0; i < len(artists); i++ {
+				if test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7  {
+					TabToPrint = append(TabToPrint, artists[i])
+				}
+			}
 			variable.Execute(w, TabToPrint)
+		} 
+		if r.FormValue("submit") == "Envoyer" && test1 <= 1958 && test2 >= 2015 {
+			fmt.Println("zefroihzerouirze")
+			variable.Execute(w, artists)
 		} else {
 			variable.Execute(w, artists)
 		}
-		fmt.Println(TabToPrint)
-		// fmt.Println(r.FormValue("minCrea"))
-		// fmt.Println(r.FormValue("minCrea"))
+
+		// if r.FormValue("submit") == "Envoyer" && test1 == 1958 && test2 == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
+		// 	fmt.Println("zefroihzerouirze")
+		// 	variable.Execute(w, artists)
+		// }
+
+		// else if r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
+		// 	variable.Execute(w, artists)
+		// }
+
+
+		// if r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
+		// 	variable.Execute(w, artists)
+		// }
+
+		// if test1 >= 1 || test2 <= 2500 {
+		// 	fmt.Println(TabToPrint)
+		// 	variable.Execute(w, TabToPrint)
+		// } else {
+		// 	variable.Execute(w, artists)
+		// 	}
+
+
+		// add creationdate en mode negatif
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
