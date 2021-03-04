@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+
 	// "strings"
 	"strconv"
 )
@@ -19,7 +20,7 @@ type Artist struct {
 	CreationDate      int
 	FirstAlbum        string
 	Locations         string
-	TabLocations      []string
+	TabLocations      OneLocation
 	ConcertDates      string
 	TabConcertDates   []string
 	Relations         string
@@ -30,8 +31,13 @@ type Artist struct {
 }
 
 type Location struct {
+	Index []OneLocation
+}
+
+type OneLocation struct {
 	ID        int
 	Locations []string
+	Date      string
 }
 
 type ConcertDate struct {
@@ -43,11 +49,10 @@ type Relations struct {
 	Index []OneRelation
 }
 
-type OneRelation struct{
-	Id int
+type OneRelation struct {
+	Id             int
 	DatesLocations map[string][]string
 }
-
 
 // map de string d'interface
 
@@ -71,8 +76,8 @@ func parseArtsists() []Artist {
 	return artists
 }
 
-func parseLocations(url string) Location {
-	res, rej := http.Get(url)
+func parseLocations() OneLocation {
+	res, rej := http.Get("https://groupietrackers.herokuapp.com/api/locations" c  )
 	if rej != nil {
 		fmt.Println(rej)
 	}
@@ -82,7 +87,7 @@ func parseLocations(url string) Location {
 		fmt.Println(err)
 	}
 
-	var locations Location
+	var locations OneLocation
 	e := json.Unmarshal(data, &locations)
 	if e != nil {
 		fmt.Println("error:", e)
@@ -134,18 +139,30 @@ func main() {
 	fileServer := http.FileServer(http.Dir("./data"))
 	http.Handle("/style.css", fileServer)
 	http.Handle("/desc.css", fileServer)
-	
+
 	artists := parseArtsists()
-	
+
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
-		variable.Execute(w, artists)
+		var TabToPrint []Artist
+
+		for i := 0; i < len(artists); i++ {
+			if r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
+				TabToPrint = append(TabToPrint, artists[i])
+			}
+		}
+
+		if r.FormValue("OneMember") == "on" || r.FormValue("TwoMember") == "on" || r.FormValue("ThreeMember") == "on" || r.FormValue("FourMember") == "on" || r.FormValue("FiveMember") == "on" || r.FormValue("SixMember") == "on" || r.FormValue("SevenMember") == "on" {
+			variable.Execute(w, TabToPrint)
+		} else {
+			variable.Execute(w, artists)
+		}
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
 		ArtistPath := r.URL.Path[17:]
-		IdArtist, _ :=  strconv.Atoi(ArtistPath)
+		IdArtist, _ := strconv.Atoi(ArtistPath)
 		IdArtist--
 
 		// Valeurs
@@ -158,5 +175,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-
