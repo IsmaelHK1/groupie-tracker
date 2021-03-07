@@ -6,10 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"text/template"
-
-	// "strings"
 	"strconv"
+	"text/template"
 )
 
 type Artist struct {
@@ -27,7 +25,6 @@ type Artist struct {
 	TabRelation       OneRelation
 	TabIndexRelation  []string
 	TabLetterRelation [][]string
-	// TabString []string
 }
 
 type Location struct {
@@ -48,8 +45,9 @@ type OneRelation struct {
 	Id             int
 	DatesLocations map[string][]string
 }
-
-// map de string d'interface
+type Receive struct {
+	Name string
+}
 
 func parseArtsists() []Artist {
 
@@ -58,7 +56,7 @@ func parseArtsists() []Artist {
 		fmt.Println(rej)
 	}
 
-	data, err := ioutil.ReadAll(res.Body) // data stock le JSON
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -77,7 +75,7 @@ func parseLocations(url string) Location {
 		fmt.Println(rej)
 	}
 
-	data, err := ioutil.ReadAll(res.Body) // data stock le JSON
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -96,7 +94,7 @@ func parseConcertDates(url string) ConcertDate {
 		fmt.Println(rej)
 	}
 
-	data, err := ioutil.ReadAll(res.Body) // data stock le JSON
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -115,7 +113,7 @@ func parseRelation(url string) OneRelation {
 		fmt.Println(rej)
 	}
 
-	data, err := ioutil.ReadAll(res.Body) // data stock le JSON
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -125,7 +123,6 @@ func parseRelation(url string) OneRelation {
 	if e != nil {
 		fmt.Println("error:", e)
 	}
-	// fmt.Println(relations)
 	return relations
 }
 
@@ -140,36 +137,16 @@ func main() {
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []Artist
-
-		test1, _ := strconv.Atoi(r.FormValue("minCrea"))
-		test2, _ := strconv.Atoi(r.FormValue("maxCrea"))
-
-		// for i := 0; i < len(artists); i++ {
-		// 	if r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7  {
-		// 		TabToPrint = append(TabToPrint, artists[i])
-		// 	}
-		// }
-
-		// if r.FormValue("OneMember") == "on" || r.FormValue("TwoMember") == "on" || r.FormValue("ThreeMember") == "on" || r.FormValue("FourMember") == "on" || r.FormValue("FiveMember") == "on" || r.FormValue("SixMember") == "on" || r.FormValue("SevenMember") == "on" {
-		// 	variable.Execute(w, TabToPrint)
-		// } else {
-		// variable.Execute(w, artists)
-		// }
-
-		// for i := 0; i < len(artists); i++ {
-		// 	if test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate {
-		// 		TabToPrint = append(TabToPrint, artists[i])
-		// 	}
-		// }
+		minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
+		maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
 
 		if r.FormValue("submit") == "Envoyer" {
 			for i := 0; i < len(artists); i++ {
-				if test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || test1 <= artists[i].CreationDate && test2 >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
+				if minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
 					TabToPrint = append(TabToPrint, artists[i])
 				}
 			}
-			if test1 == 1958 && test2 == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
-				fmt.Println("zefroihzerouirze")
+			if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
 				variable.Execute(w, artists)
 			} else {
 				variable.Execute(w, TabToPrint)
@@ -177,28 +154,10 @@ func main() {
 		} else {
 			variable.Execute(w, artists)
 		}
-
-		// if r.FormValue("submit") == "Envoyer" && test1 == 1958 && test2 == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
-		// 	fmt.Println("zefroihzerouirze")
-		// 	variable.Execute(w, artists)
-		// }
-
-		// else if r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
-		// 	variable.Execute(w, artists)
-		// }
-
-		// if r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
-		// 	variable.Execute(w, artists)
-		// }
-
-		// if test1 >= 1 || test2 <= 2500 {
-		// 	fmt.Println(TabToPrint)
-		// 	variable.Execute(w, TabToPrint)
-		// } else {
-		// 	variable.Execute(w, artists)
-		// 	}
-
-		// add creationdate en mode negatif
+		filter := Receive{
+			Name: r.FormValue("search"),
+		}
+		fmt.Println(filter.Name)
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
@@ -217,3 +176,19 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
+// 	http.HandleFunc("/", page)
+
+// 	if err := http.ListenAndServe(":8080", nil); err != nil {
+// 		log.Fatal(err)
+// 	}
+// }
+// func page(w http.ResponseWriter, r *http.Request) {
+// 	tmpl := template.Must(template.ParseFiles("index.html"))
+// 	filter := Receive{
+// 		Name: r.FormValue("search"),
+// 	}
+// 	fmt.Println(filter.Name)
+
+// 	tmpl.Execute(w, tmpl)
+// }
