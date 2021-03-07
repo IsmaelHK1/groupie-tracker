@@ -18,10 +18,8 @@
             </a>
             <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
         </div>
-        <form method="POST">
-        <form class="example" action="action_page.php">
-          <input type="text" placeholder="Search.." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
+        <form method="GET">
+            <input class="searchbar"type="text" placeholder="Rechercher" name="search">
         </form>
             <!-- <input type="text" name="search" placeholder="Search..">
             <i class="fas fa-search"></i> -->
@@ -32,7 +30,7 @@
         <div id="filterPage">
             <div id="filterPage2">
                 <p>membres</p>
-                <form method="GET">
+                <form method="POST">
                     <div class="col1">
                         <input type="checkbox" label="1" name="OneMember"> <label>1</label>
                         <input type="checkbox" label="2" name="TwoMember">  <label>2</label>

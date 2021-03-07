@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
+	"strings" 
 )
 
 type Artist struct {
@@ -17,17 +18,21 @@ type Artist struct {
 	Members           []string
 	CreationDate      int
 	FirstAlbum        string
-	Locations         string
-	TabLocations      []string
 	ConcertDates      string
 	TabConcertDates   []string
 	Relations         string
 	TabRelation       OneRelation
 	TabIndexRelation  []string
 	TabLetterRelation [][]string
+	TabLocation	  OneLocation
+	Locations string
 }
 
-type Location struct {
+type Locations struct {
+	Index []OneLocation
+}
+
+type OneLocation struct {
 	ID        int
 	Locations []string
 }
@@ -69,7 +74,7 @@ func parseArtsists() []Artist {
 	return artists
 }
 
-func parseLocations(url string) Location {
+func parseLocation(url string) OneLocation {
 	res, rej := http.Get(url)
 	if rej != nil {
 		fmt.Println(rej)
@@ -80,7 +85,7 @@ func parseLocations(url string) Location {
 		fmt.Println(err)
 	}
 
-	var locations Location
+	var locations OneLocation
 	e := json.Unmarshal(data, &locations)
 	if e != nil {
 		fmt.Println("error:", e)
@@ -151,13 +156,34 @@ func main() {
 			} else {
 				variable.Execute(w, TabToPrint)
 			}
+		} else if r.FormValue("search") != "" {
+			filter := r.FormValue("search")
+			for i := 0; i < len(artists); i++ {
+				for _, value := range artists[i].Members {
+					if strings.ToUpper(filter) == strings.ToUpper(value){
+						TabToPrint = append(TabToPrint, artists[i])
+					}
+				}
+				artists[i].TabRelation = parseRelation(artists[i].Relations)
+				for index, value := range artists[i].TabRelation.DatesLocations {
+					for _, value2 := range value {
+						if value2 == filter {
+							TabToPrint = append(TabToPrint, artists[i])
+						}
+					}
+					if index == filter {
+						TabToPrint = append(TabToPrint, artists[i])
+					}
+				}
+
+				if strings.ToUpper(filter) == strings.ToUpper(artists[i].Name) || strings.ToUpper(filter) == strings.ToUpper(artists[i].FirstAlbum) || filter == strconv.Itoa(artists[i].CreationDate) {
+					TabToPrint = append(TabToPrint, artists[i])
+				}
+			}
+			variable.Execute(w, TabToPrint)
 		} else {
 			variable.Execute(w, artists)
 		}
-		filter := Receive{
-			Name: r.FormValue("search"),
-		}
-		fmt.Println(filter.Name)
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
@@ -177,18 +203,3 @@ func main() {
 	}
 }
 
-// 	http.HandleFunc("/", page)
-
-// 	if err := http.ListenAndServe(":8080", nil); err != nil {
-// 		log.Fatal(err)
-// 	}
-// }
-// func page(w http.ResponseWriter, r *http.Request) {
-// 	tmpl := template.Must(template.ParseFiles("index.html"))
-// 	filter := Receive{
-// 		Name: r.FormValue("search"),
-// 	}
-// 	fmt.Println(filter.Name)
-
-// 	tmpl.Execute(w, tmpl)
-// }
