@@ -7,138 +7,93 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"text/template"
-	"strings" 
 )
 
+//verifier que les noms de variables collent bien avec le html, y a eu des modif
+
+//Artist is the struct to parse the api artists
 type Artist struct {
-	Id                int
-	Image             string
-	Name              string
-	Members           []string
-	CreationDate      int
-	FirstAlbum        string
-	ConcertDates      string
-	TabConcertDates   []string
-	Relations         string
-	TabRelation       OneRelation
-	TabIndexRelation  []string
-	TabLetterRelation [][]string
-	TabLocation	  OneLocation
-	Locations string
+	//-- data from json --\\
+	ID           int      `json:"id"`
+	Image        string   `json:"image"`
+	Name         string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	URLRelations string   `json:"relations"`
+
+	//-- data from json, not used --\\
+	//UrlLocations 		string		`json:"locations"`
+	//UrlConcertDate		string 		`json:"concertDates"`
+
+	//-- data created --\\
+	TabRelation OneRelation
 }
 
-type Locations struct {
-	Index []OneLocation
-}
-
-type OneLocation struct {
-	ID        int
-	Locations []string
-}
-
+//ConcertDate is the struct to parse the api dates
 type ConcertDate struct {
-	ID    int
-	Dates []string
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
 }
 
+//Relations is []OneRelation
 type Relations struct {
 	Index []OneRelation
 }
 
+//OneRelation is the struct to parse the api relation
 type OneRelation struct {
-	Id             int
+	ID             int
 	DatesLocations map[string][]string
 }
-type Receive struct {
-	Name string
-}
 
-func parseArtsists() []Artist {
-
-	res, rej := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	if rej != nil {
-		fmt.Println(rej)
+//retrieveJSON read json from api link and return json in []byte
+func retrieveJSON(url string) []byte {
+	//-- read json from url --\\
+	response, reject := http.Get(url)
+	if reject != nil {
+		fmt.Println(reject)
 	}
-
-	data, err := ioutil.ReadAll(res.Body)
+	//-- return the json --\\
+	data, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
+	return data
+}
 
+//parseJSONArtists unmarshal the json and return it in []Artist
+func parseJSONArtsists(url string) []Artist {
 	var artists []Artist
-	e := json.Unmarshal(data, &artists)
-	if e != nil {
-		fmt.Println("error:", e)
+	data := retrieveJSON(url)
+	err := json.Unmarshal(data, &artists)
+	if err != nil {
+		fmt.Println("error while unmarshal artist:", err)
 	}
 	return artists
 }
 
-func parseLocation(url string) OneLocation {
-	res, rej := http.Get(url)
-	if rej != nil {
-		fmt.Println(rej)
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	var locations OneLocation
-	e := json.Unmarshal(data, &locations)
-	if e != nil {
-		fmt.Println("error:", e)
-	}
-	return locations
-}
-
-func parseConcertDates(url string) ConcertDate {
-	res, rej := http.Get(url)
-	if rej != nil {
-		fmt.Println(rej)
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	var concertDates ConcertDate
-	e := json.Unmarshal(data, &concertDates)
-	if e != nil {
-		fmt.Println("error:", e)
-	}
-	return concertDates
-}
-
-func parseRelation(url string) OneRelation {
-	res, rej := http.Get(url)
-	if rej != nil {
-		fmt.Println(rej)
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-
+//parseJSONRelation unmarshal the json and return it in OneRelation
+func parseJSONRelation(url string) OneRelation {
 	var relations OneRelation
-	e := json.Unmarshal(data, &relations)
-	if e != nil {
-		fmt.Println("error:", e)
+	data := retrieveJSON(url)
+	err := json.Unmarshal(data, &relations)
+	if err != nil {
+		fmt.Println("error:", err)
 	}
 	return relations
 }
 
-func main() {
-
+//serveFile make files available for the website
+func serveFile() {
 	fileServer := http.FileServer(http.Dir("./data"))
 	http.Handle("/style.css", fileServer)
 	http.Handle("/desc.css", fileServer)
+}
 
-	artists := parseArtsists()
-
+func handleGroupieTracker(artists []Artist) {
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []Artist
@@ -160,11 +115,11 @@ func main() {
 			filter := r.FormValue("search")
 			for i := 0; i < len(artists); i++ {
 				for _, value := range artists[i].Members {
-					if strings.ToUpper(filter) == strings.ToUpper(value){
+					if strings.ToUpper(filter) == strings.ToUpper(value) {
 						TabToPrint = append(TabToPrint, artists[i])
 					}
 				}
-				artists[i].TabRelation = parseRelation(artists[i].Relations)
+				artists[i].TabRelation = parseJSONRelation(artists[i].URLRelations)
 				for index, value := range artists[i].TabRelation.DatesLocations {
 					for _, value2 := range value {
 						if value2 == filter {
@@ -185,21 +140,33 @@ func main() {
 			variable.Execute(w, artists)
 		}
 	})
+}
 
+func handleArtist(artists []Artist) {
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
 		ArtistPath := r.URL.Path[17:]
-		IdArtist, _ := strconv.Atoi(ArtistPath)
-		IdArtist--
+		IDArtist, _ := strconv.Atoi(ArtistPath)
+		IDArtist--
 
 		// Valeurs
-		artists[IdArtist].TabRelation = parseRelation(artists[IdArtist].Relations)
-		variable.Execute(w, artists[IdArtist])
+		artists[IDArtist].TabRelation = parseJSONRelation(artists[IDArtist].URLRelations)
+		variable.Execute(w, artists[IDArtist])
 	})
+}
 
-	fmt.Println("vas y le serv marche")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+func runServer() {
+	fmt.Println("server is runing")
+	if err := http.ListenAndServe(":7070", nil); err != nil {
 		log.Fatal(err)
 	}
 }
 
+func main() {
+
+	serveFile()
+	handleGroupieTracker(parseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists"))
+	handleArtist(parseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists"))
+	runServer()
+
+}
