@@ -93,6 +93,7 @@ func serveFile() {
 	http.Handle("/desc.css", fileServer)
 }
 
+//handleGroupieTracker is the handle function for the main page (index.html)
 func handleGroupieTracker(artists []Artist) {
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
@@ -142,6 +143,7 @@ func handleGroupieTracker(artists []Artist) {
 	})
 }
 
+//handleArtist is the handle function for the artist page (artists.html)
 func handleArtist(artists []Artist) {
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
@@ -155,18 +157,18 @@ func handleArtist(artists []Artist) {
 	})
 }
 
+//runServer set the listenandserve port to 8080
 func runServer() {
 	fmt.Println("server is runing")
-	if err := http.ListenAndServe(":7070", nil); err != nil {
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }
 
 func main() {
-
 	serveFile()
-	handleGroupieTracker(parseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists"))
-	handleArtist(parseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists"))
+	jsonArtist := parseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists")
+	handleGroupieTracker(jsonArtist)
+	handleArtist(jsonArtist)
 	runServer()
-
 }
