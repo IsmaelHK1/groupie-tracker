@@ -93,50 +93,57 @@ func serveFile() {
 	http.Handle("/desc.css", fileServer)
 }
 
+func filters(artists, TabToPrint []Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
+	minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
+	maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
+	for i := 0; i < len(artists); i++ {
+		if minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
+			TabToPrint = append(TabToPrint, artists[i])
+		}
+	}
+	if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
+		variable.Execute(w, artists)
+	} else {
+		variable.Execute(w, TabToPrint)
+	}
+}
+
+func searchBar(artists, TabToPrint []Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
+	filter := r.FormValue("search")
+	for i := 0; i < len(artists); i++ {
+		for _, value := range artists[i].Members {
+			if strings.ToUpper(filter) == strings.ToUpper(value) {
+				TabToPrint = append(TabToPrint, artists[i])
+			}
+		}
+		artists[i].TabRelation = parseJSONRelation(artists[i].URLRelations)
+		for index, value := range artists[i].TabRelation.DatesLocations {
+			for _, value2 := range value {
+				if value2 == filter {
+					TabToPrint = append(TabToPrint, artists[i])
+				}
+			}
+			if index == filter {
+				TabToPrint = append(TabToPrint, artists[i])
+			}
+		}
+		if strings.ToUpper(filter) == strings.ToUpper(artists[i].Name) || strings.ToUpper(filter) == strings.ToUpper(artists[i].FirstAlbum) || filter == strconv.Itoa(artists[i].CreationDate) {
+			TabToPrint = append(TabToPrint, artists[i])
+		}
+	}
+	variable.Execute(w, TabToPrint)
+}
+
 //handleGroupieTracker is the handle function for the main page (index.html)
 func handleGroupieTracker(artists []Artist) {
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []Artist
-		minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
-		maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
 
 		if r.FormValue("submit") == "Envoyer" {
-			for i := 0; i < len(artists); i++ {
-				if minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
-					TabToPrint = append(TabToPrint, artists[i])
-				}
-			}
-			if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
-				variable.Execute(w, artists)
-			} else {
-				variable.Execute(w, TabToPrint)
-			}
+			filters(artists, TabToPrint, variable, w, r)
 		} else if r.FormValue("search") != "" {
-			filter := r.FormValue("search")
-			for i := 0; i < len(artists); i++ {
-				for _, value := range artists[i].Members {
-					if strings.ToUpper(filter) == strings.ToUpper(value) {
-						TabToPrint = append(TabToPrint, artists[i])
-					}
-				}
-				artists[i].TabRelation = parseJSONRelation(artists[i].URLRelations)
-				for index, value := range artists[i].TabRelation.DatesLocations {
-					for _, value2 := range value {
-						if value2 == filter {
-							TabToPrint = append(TabToPrint, artists[i])
-						}
-					}
-					if index == filter {
-						TabToPrint = append(TabToPrint, artists[i])
-					}
-				}
-
-				if strings.ToUpper(filter) == strings.ToUpper(artists[i].Name) || strings.ToUpper(filter) == strings.ToUpper(artists[i].FirstAlbum) || filter == strconv.Itoa(artists[i].CreationDate) {
-					TabToPrint = append(TabToPrint, artists[i])
-				}
-			}
-			variable.Execute(w, TabToPrint)
+			searchBar(artists, TabToPrint, variable, w, r)
 		} else {
 			variable.Execute(w, artists)
 		}
