@@ -9,6 +9,8 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: #222222;
+    width: 100%;
+    padding-bottom: 35px;
 }
 
 header {
@@ -27,9 +29,6 @@ header {
 header #divLogo {
     grid-column: 1;
     grid-row: 1;
-    /* display: flex;
-    flex-direction: row;
-    align-items: left; */
 }
 
 header #divLogo a {
@@ -78,8 +77,10 @@ footer{
     background: rgb(0,210,255);
     text-align: center;
     clear: both;
-    position: relative;
-    height: 40px;
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    height:30px;
 }
 
 a {
@@ -100,6 +101,7 @@ h2 {
 
 #filterPage {
     border-right: 3px solid rgb(0,4,255);
+    position: absolute, fixed;
     display: none;
 }
 
@@ -139,6 +141,7 @@ h2 {
     display: flex;
     flex-flow: wrap row;
     justify-content: space-around;
+
 }
 
 #artistcliquable .cardArtist {

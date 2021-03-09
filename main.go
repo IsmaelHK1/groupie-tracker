@@ -131,7 +131,7 @@ func searchBar(artists, TabToPrint []Artist, variable *template.Template, w http
 			}
 		}
 
-		if strings.ToUpper(strings.Join(strings.Split(filter, " -name"), "")) == strings.ToUpper(artists[i].Name) || strings.ToUpper(strings.Join(strings.Split(filter, " -FirstAlbum"), "")) == strings.ToUpper(artists[i].FirstAlbum) || strings.Join(strings.Split(filter, " -CreationDate"), "") == strconv.Itoa(artists[i].CreationDate) {
+		if strings.ToUpper(strings.Join(strings.Split(filter, " -Name"), "")) == strings.ToUpper(artists[i].Name) || strings.ToUpper(strings.Join(strings.Split(filter, " -FirstAlbum"), "")) == strings.ToUpper(artists[i].FirstAlbum) || strings.Join(strings.Split(filter, " -CreationDate"), "") == strconv.Itoa(artists[i].CreationDate) {
 			TabToPrint = append(TabToPrint, artists[i])
 		}
 	}
