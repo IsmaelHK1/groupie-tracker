@@ -116,21 +116,22 @@ func searchBar(artists, TabToPrint []Artist, variable *template.Template, w http
 	filter := r.FormValue("search")
 	for i := 0; i < len(artists); i++ {
 		for _, value := range artists[i].Members {
-			if strings.ToUpper(filter) == strings.ToUpper(value) {
+			if strings.ToUpper(strings.Join(strings.Split(filter, " -Members"), "")) == strings.ToUpper(value) {
 				TabToPrint = append(TabToPrint, artists[i])
 			}
 		}
 		for index, value := range artists[i].TabRelation {
 			for _, value2 := range value {
-				if value2 == filter {
+				if value2 == strings.Join(strings.Split(filter, " -ConcertDate"), "") {
 					TabToPrint = append(TabToPrint, artists[i])
 				}
 			}
-			if index == filter {
+			if index == strings.Join(strings.Split(filter, " -Location"), "") {
 				TabToPrint = append(TabToPrint, artists[i])
 			}
 		}
-		if strings.ToUpper(filter) == strings.ToUpper(artists[i].Name) || strings.ToUpper(filter) == strings.ToUpper(artists[i].FirstAlbum) || filter == strconv.Itoa(artists[i].CreationDate) {
+
+		if strings.ToUpper(strings.Join(strings.Split(filter, " -name"), "")) == strings.ToUpper(artists[i].Name) || strings.ToUpper(strings.Join(strings.Split(filter, " -FirstAlbum"), "")) == strings.ToUpper(artists[i].FirstAlbum) || strings.Join(strings.Split(filter, " -CreationDate"), "") == strconv.Itoa(artists[i].CreationDate) {
 			TabToPrint = append(TabToPrint, artists[i])
 		}
 	}

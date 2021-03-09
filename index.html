@@ -22,16 +22,16 @@
             <input list="list" id="search" name="search"/>
             <datalist id="list">
                 {{range .}}
-                    <option value="{{.Name}} -name">
+                    <option value="{{.Name}} -Name">
                     {{range .Members}}
-                        <option value={{.}}>
+                        <option value="{{.}} -Members">
                     {{end}}
-                    <option value={{.FirstAlbum}}>
-                    <option value="{{.CreationDate}}">
+                    <option value="{{.FirstAlbum}} -FirstAlbum">
+                    <option value="{{.CreationDate}} -CreationDate">
                     {{range $index, $element := .TabRelation}}
-                        <option value={{$index}}>
+                        <option value="{{$index}} -Location">
                         {{range $element}}
-                            <option value={{.}}>
+                            <option value="{{.}} -ConcertDate">
                         {{end}}
                     {{end}}
                 {{end}}
