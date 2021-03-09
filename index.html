@@ -18,22 +18,23 @@
             </a>
             <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
         </div>
-        <form method="GET">
+        <form method="POST">
             <input list="list" id="search" name="search"/>
             <datalist id="list">
                 {{range .}}
-                    <option value={{.Name}}>
+                    <option value="{{.Name}} -name">
                     {{range .Members}}
                         <option value={{.}}>
                     {{end}}
                     <option value={{.FirstAlbum}}>
                     <option value="{{.CreationDate}}">
-                    <!-- {{range $index, $element := .TabRelation.DatesLocations}}
+                    {{range $index, $element := .TabRelation}}
                         <option value={{$index}}>
-                        {{range $element}
-                                <option value={{.}}>
+                        {{range $element}}
+                            <option value={{.}}>
                         {{end}}
-                    {{end}} -->
+                    {{end}}
+                {{end}}
             </datalist>
         </form>
     </header>

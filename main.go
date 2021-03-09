@@ -25,11 +25,11 @@ type Artist struct {
 	URLRelations string   `json:"relations"`
 
 	//-- data from json, not used --\\
-	//UrlLocations 		string		`json:"locations"`
+	// UrlLocations 		string		`json:"locations"`
 	//UrlConcertDate		string 		`json:"concertDates"`
 
 	//-- data created --\\
-	TabRelation OneRelation
+	TabRelation map[string][]string
 }
 
 //ConcertDate is the struct to parse the api dates
@@ -67,17 +67,21 @@ func retrieveJSON(url string) []byte {
 //parseJSONArtists unmarshal the json and return it in []Artist
 func parseJSONArtsists(url string) []Artist {
 	var artists []Artist
+	relations := parseJSONRelation("https://groupietrackers.herokuapp.com/api/relation")
 	data := retrieveJSON(url)
 	err := json.Unmarshal(data, &artists)
 	if err != nil {
 		fmt.Println("error while unmarshal artist:", err)
 	}
+	for i := 0; i < len(artists); i++ {
+		artists[i].TabRelation = relations.Index[i].DatesLocations
+	}
 	return artists
 }
 
 //parseJSONRelation unmarshal the json and return it in OneRelation
-func parseJSONRelation(url string) OneRelation {
-	var relations OneRelation
+func parseJSONRelation(url string) Relations {
+	var relations Relations
 	data := retrieveJSON(url)
 	err := json.Unmarshal(data, &relations)
 	if err != nil {
@@ -116,8 +120,7 @@ func searchBar(artists, TabToPrint []Artist, variable *template.Template, w http
 				TabToPrint = append(TabToPrint, artists[i])
 			}
 		}
-		artists[i].TabRelation = parseJSONRelation(artists[i].URLRelations)
-		for index, value := range artists[i].TabRelation.DatesLocations {
+		for index, value := range artists[i].TabRelation {
 			for _, value2 := range value {
 				if value2 == filter {
 					TabToPrint = append(TabToPrint, artists[i])
@@ -147,6 +150,7 @@ func handleGroupieTracker(artists []Artist) {
 		} else {
 			variable.Execute(w, artists)
 		}
+
 	})
 }
 
@@ -159,7 +163,6 @@ func handleArtist(artists []Artist) {
 		IDArtist--
 
 		// Valeurs
-		artists[IDArtist].TabRelation = parseJSONRelation(artists[IDArtist].URLRelations)
 		variable.Execute(w, artists[IDArtist])
 	})
 }

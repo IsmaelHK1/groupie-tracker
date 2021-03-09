@@ -63,7 +63,7 @@ header .filterImg {
     margin: 5px;
 }
 
-header .searchbar {
+header #search {
     grid-column: 2;
     grid-row: 1;
     margin: 20px;
