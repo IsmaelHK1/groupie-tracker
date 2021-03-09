@@ -19,11 +19,23 @@
             <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
         </div>
         <form method="GET">
-            <input class="searchbar"type="text" placeholder="Rechercher" name="search">
+            <input list="list" id="search" name="search"/>
+            <datalist id="list">
+                {{range .}}
+                    <option value={{.Name}}>
+                    {{range .Members}}
+                        <option value={{.}}>
+                    {{end}}
+                    <option value={{.FirstAlbum}}>
+                    <option value="{{.CreationDate}}">
+                    <!-- {{range $index, $element := .TabRelation.DatesLocations}}
+                        <option value={{$index}}>
+                        {{range $element}
+                                <option value={{.}}>
+                        {{end}}
+                    {{end}} -->
+            </datalist>
         </form>
-            <!-- <input type="text" name="search" placeholder="Search..">
-            <i class="fas fa-search"></i> -->
-       </form>
     </header>
 
     <div id="artistAndFilter">
