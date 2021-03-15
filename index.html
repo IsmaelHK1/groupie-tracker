@@ -6,7 +6,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" href="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    
 
 <body class="accueil">
     <header class="accueil">
@@ -16,14 +18,32 @@
             </a>
             <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
         </div>
-        <input class="searchbar"type="text" placeholder="Rechercher">
+        <form method="POST">
+            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/>
+            <datalist id="list">
+                {{range .}}
+                    <option value="{{.Name}} -Name">
+                    {{range .Members}}
+                        <option value="{{.}} -Members">
+                    {{end}}
+                    <option value="{{.FirstAlbum}} -FirstAlbum">
+                    <option value="{{.CreationDate}} -CreationDate">
+                    {{range $index, $element := .TabRelation}}
+                        <option value="{{$index}} -Location">
+                        {{range $element}}
+                            <option value="{{.}} -ConcertDate">
+                        {{end}}
+                    {{end}}
+                {{end}}
+            </datalist>
+        </form>
     </header>
 
     <div id="artistAndFilter">
         <div id="filterPage">
             <div id="filterPage2">
                 <p>membres</p>
-                <form method="GET">
+                <form method="POST">
                     <div class="col1">
 <<<<<<< HEAD
                         <input type="checkbox" label="1" name="OneMember"> <label>1</label>
@@ -63,8 +83,8 @@
         </div>
         <div id="artistcliquable">
         {{range .}}
-                <a href="/groupie-tracker/{{.Id}}">
-                    <div class="cardArtist" id="{{.Id}}">
+                <a href="/groupie-tracker/{{.ID}}">
+                    <div class="cardArtist" id="{{.ID}}">
                         <h2>{{.Name}}</h2>
                         <img src="{{.Image}}">
                     </div>

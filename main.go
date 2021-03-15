@@ -7,183 +7,180 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"text/template"
 )
 
+//verifier que les noms de variables collent bien avec le html, y a eu des modif
+
+//Artist is the struct to parse the api artists
 type Artist struct {
-	Id                int
-	Image             string
-	Name              string
-	Members           []string
-	CreationDate      int
-	FirstAlbum        string
-	Locations         string
-	TabLocations      []string
-	ConcertDates      string
-	TabConcertDates   []string
-	Relations         string
-	TabRelation       OneRelation
-	TabIndexRelation  []string
-	TabLetterRelation [][]string
+	//-- data from json --\\
+	ID           int      `json:"id"`
+	Image        string   `json:"image"`
+	Name         string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	URLRelations string   `json:"relations"`
+
+	//-- data from json, not used --\\
+	// UrlLocations 		string		`json:"locations"`
+	//UrlConcertDate		string 		`json:"concertDates"`
+
+	//-- data created --\\
+	TabRelation map[string][]string
 }
 
-type Location struct {
-	ID        int
-	Locations []string
-}
-
+//ConcertDate is the struct to parse the api dates
 type ConcertDate struct {
-	ID    int
-	Dates []string
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
 }
 
+//Relations is []OneRelation
 type Relations struct {
 	Index []OneRelation
 }
 
+//OneRelation is the struct to parse the api relation
 type OneRelation struct {
-	Id             int
+	ID             int
 	DatesLocations map[string][]string
 }
 
-func parseArtsists() []Artist {
-
-	res, rej := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	if rej != nil {
-		fmt.Println(rej)
+//retrieveJSON read json from api link and return json in []byte
+func retrieveJSON(url string) []byte {
+	//-- read json from url --\\
+	response, reject := http.Get(url)
+	if reject != nil {
+		fmt.Println(reject)
 	}
-
-	data, err := ioutil.ReadAll(res.Body)
+	//-- return the json --\\
+	data, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
+	return data
+}
 
+//parseJSONArtists unmarshal the json and return it in []Artist
+func parseJSONArtsists(url string) []Artist {
 	var artists []Artist
-	e := json.Unmarshal(data, &artists)
-	if e != nil {
-		fmt.Println("error:", e)
+	relations := parseJSONRelation("https://groupietrackers.herokuapp.com/api/relation")
+	data := retrieveJSON(url)
+	err := json.Unmarshal(data, &artists)
+	if err != nil {
+		fmt.Println("error while unmarshal artist:", err)
+	}
+	for i := 0; i < len(artists); i++ {
+		artists[i].TabRelation = relations.Index[i].DatesLocations
 	}
 	return artists
 }
 
-func parseLocations(url string) Location {
-	res, rej := http.Get(url)
-	if rej != nil {
-		fmt.Println(rej)
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
+//parseJSONRelation unmarshal the json and return it in OneRelation
+func parseJSONRelation(url string) Relations {
+	var relations Relations
+	data := retrieveJSON(url)
+	err := json.Unmarshal(data, &relations)
 	if err != nil {
-		fmt.Println(err)
-	}
-
-	var locations Location
-	e := json.Unmarshal(data, &locations)
-	if e != nil {
-		fmt.Println("error:", e)
-	}
-	return locations
-}
-
-func parseConcertDates(url string) ConcertDate {
-	res, rej := http.Get(url)
-	if rej != nil {
-		fmt.Println(rej)
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	var concertDates ConcertDate
-	e := json.Unmarshal(data, &concertDates)
-	if e != nil {
-		fmt.Println("error:", e)
-	}
-	return concertDates
-}
-
-func parseRelation(url string) OneRelation {
-	res, rej := http.Get(url)
-	if rej != nil {
-		fmt.Println(rej)
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	var relations OneRelation
-	e := json.Unmarshal(data, &relations)
-	if e != nil {
-		fmt.Println("error:", e)
+		fmt.Println("error:", err)
 	}
 	return relations
 }
 
-func main() {
-
+//serveFile make files available for the website
+func serveFile() {
 	fileServer := http.FileServer(http.Dir("./data"))
 	http.Handle("/style.css", fileServer)
 	http.Handle("/desc.css", fileServer)
+}
 
-	artists := parseArtsists()
+func filters(artists, TabToPrint []Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
+	minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
+	maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
+	for i := 0; i < len(artists); i++ {
+		if minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
+			TabToPrint = append(TabToPrint, artists[i])
+		}
+	}
+	if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
+		variable.Execute(w, artists)
+	} else {
+		variable.Execute(w, TabToPrint)
+	}
+}
 
+func searchBar(artists, TabToPrint []Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
+	filter := r.FormValue("search")
+	for i := 0; i < len(artists); i++ {
+		for _, value := range artists[i].Members {
+			if strings.ToUpper(strings.Join(strings.Split(filter, " -Members"), "")) == strings.ToUpper(value) {
+				TabToPrint = append(TabToPrint, artists[i])
+			}
+		}
+		for index, value := range artists[i].TabRelation {
+			for _, value2 := range value {
+				if value2 == strings.Join(strings.Split(filter, " -ConcertDate"), "") {
+					TabToPrint = append(TabToPrint, artists[i])
+				}
+			}
+			if index == strings.Join(strings.Split(filter, " -Location"), "") {
+				TabToPrint = append(TabToPrint, artists[i])
+			}
+		}
+
+		if strings.ToUpper(strings.Join(strings.Split(filter, " -Name"), "")) == strings.ToUpper(artists[i].Name) || strings.ToUpper(strings.Join(strings.Split(filter, " -FirstAlbum"), "")) == strings.ToUpper(artists[i].FirstAlbum) || strings.Join(strings.Split(filter, " -CreationDate"), "") == strconv.Itoa(artists[i].CreationDate) {
+			TabToPrint = append(TabToPrint, artists[i])
+		}
+	}
+	variable.Execute(w, TabToPrint)
+}
+
+//handleGroupieTracker is the handle function for the main page (index.html)
+func handleGroupieTracker(artists []Artist) {
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
 
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []Artist
-		minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
-		maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
 
 		if r.FormValue("submit") == "Envoyer" {
-			for i := 0; i < len(artists); i++ {
-				if minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("OneMember") == "on" && len(artists[i].Members) == 1 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("TwoMember") == "on" && len(artists[i].Members) == 2 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("ThreeMember") == "on" && len(artists[i].Members) == 3 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FourMember") == "on" && len(artists[i].Members) == 4 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("FiveMember") == "on" && len(artists[i].Members) == 5 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SixMember") == "on" && len(artists[i].Members) == 6 || minCrea <= artists[i].CreationDate && maxCrea >= artists[i].CreationDate && r.FormValue("SevenMember") == "on" && len(artists[i].Members) == 7 {
-					TabToPrint = append(TabToPrint, artists[i])
-				}
-			}
-			if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
-				variable.Execute(w, artists)
-			} else {
-				variable.Execute(w, TabToPrint)
-				// for i := 0; i < len(artists); i++ {
-				// 	artists[i].ToPrint = true
-				// 	fmt.Println(artists[i].ToPrint)
-				// }
-
-				//faire une fonction qui prend en parametre un tab et qui retourne un tab qui a tt sauf ce qui ne dois pas s'afficher
-				//filter avec parametre tableau et fonction qui retourne un bool, si il est faux on lenleve sinon on le remet
-				variable, _ := template.ParseFiles("index.html")
-				minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
-				maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
-				var TabToPrint []Artist
-
-				for i := 0; i < len(artists); i++ {
-					if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
-						TabToPrint = append(TabToPrint, artists[i])
-					} else {
-						variable.Execute(w, artists)
-					}
-				}
-			}
+			filters(artists, TabToPrint, variable, w, r)
+		} else if r.FormValue("search") != "" {
+			searchBar(artists, TabToPrint, variable, w, r)
+		} else {
+			variable.Execute(w, artists)
 		}
-	})
 
+	})
+}
+
+//handleArtist is the handle function for the artist page (artists.html)
+func handleArtist(artists []Artist) {
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
 		ArtistPath := r.URL.Path[17:]
-		IdArtist, _ := strconv.Atoi(ArtistPath)
-		IdArtist--
+		IDArtist, _ := strconv.Atoi(ArtistPath)
+		IDArtist--
 
 		// Valeurs
-		artists[IdArtist].TabRelation = parseRelation(artists[IdArtist].Relations)
-		variable.Execute(w, artists[IdArtist])
+		variable.Execute(w, artists[IDArtist])
 	})
+}
 
-	fmt.Println("vas y le serv marche")
+//runServer set the listenandserve port to 8080
+func runServer() {
+	fmt.Println("server is runing")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func main() {
+	serveFile()
+	jsonArtist := parseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists")
+	handleGroupieTracker(jsonArtist)
+	handleArtist(jsonArtist)
+	runServer()
 }
