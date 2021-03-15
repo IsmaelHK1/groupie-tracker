@@ -25,6 +25,10 @@ type Artist struct {
 	TabRelation       OneRelation
 	TabIndexRelation  []string
 	TabLetterRelation [][]string
+<<<<<<< HEAD
+=======
+	// TabString []string
+>>>>>>> 8c504fc27bf83e7b90148c5a021b79ebd6ba02cf
 }
 
 type Location struct {
@@ -132,6 +136,7 @@ func main() {
 	artists := parseArtsists()
 
 	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
+<<<<<<< HEAD
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []Artist
 		minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
@@ -147,10 +152,40 @@ func main() {
 				variable.Execute(w, artists)
 			} else {
 				variable.Execute(w, TabToPrint)
+=======
+<<<<<<< HEAD
+		for i := 0; i < len(artists); i++ {
+			artists[i].ToPrint = true
+			fmt.Println(artists[i].ToPrint)
+		}
+
+		//faire une fonction qui prend en parametre un tab et qui retourne un tab qui a tt sauf ce qui ne dois pas s'afficher 
+		//filter avec parametre tableau et fonction qui retourne un bool, si il est faux on lenleve sinon on le remet 
+=======
+
+>>>>>>> 69d415f... filter for members OK
+		variable, _ := template.ParseFiles("index.html")
+		minMembers, _ := strconv.Atoi(r.FormValue("minMembers"))
+		maxMembers, _ := strconv.Atoi(r.FormValue("maxMembers"))
+		var TabToPrint []Artist
+
+		for i := 0; i < len(artists); i++ {
+			if len(artists[i].Members) >= minMembers && len(artists[i].Members) <= maxMembers {
+				TabToPrint = append(TabToPrint, artists[i])
+>>>>>>> 8c504fc27bf83e7b90148c5a021b79ebd6ba02cf
 			}
 		} else {
 			variable.Execute(w, artists)
 		}
+<<<<<<< HEAD
+=======
+
+		if minMembers == 0 && maxMembers == 0 {
+			variable.Execute(w, artists)
+		} else {
+			variable.Execute(w, TabToPrint)
+		}
+>>>>>>> 8c504fc27bf83e7b90148c5a021b79ebd6ba02cf
 	})
 
 	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
