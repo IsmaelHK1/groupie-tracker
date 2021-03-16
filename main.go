@@ -18,6 +18,8 @@ func serveFile() {
 	http.Handle("/main.css", fileServer)
 	http.Handle("/index.css", fileServer)
 	http.Handle("/artist.css", fileServer)
+	http.Handle("/logo.png", fileServer)
+	http.Handle("/filtre.png", fileServer)
 }
 
 func filters(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
