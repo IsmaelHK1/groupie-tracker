@@ -10,17 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
     
-
 <body>
-    <header>
-        <div id="divLogo">
-            <a href="/groupie-tracker">
-                <img id="logoImage" src="logo.png">
-            </a>
-            <img id="filterImage" src="filtre.png">
-        </div>
+    <div class="container">
         <form method="POST">
-            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/>
+            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/> 
             <datalist id="list">
                 {{range .}}
                     <option value="{{.Name}} -Name">
@@ -38,6 +31,17 @@
                 {{end}}
             </datalist>
         </form>
+        <div class="search">
+        </div>
+    </div>
+
+    <header>
+        <div id="divLogo">
+            <a href="/groupie-tracker">
+                <img id="logoImage" src="logo.png">
+            </a>
+            <img id="filterImage" src="filtre.png">
+        </div>  
     </header>
 
     <div id="artistAndFilter">
