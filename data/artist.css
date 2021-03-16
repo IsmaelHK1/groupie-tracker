@@ -1,0 +1,45 @@
+/* page artists */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    min-height: 100vh;
+}
+
+.content .leftbox{
+    font-size: 18px;
+    border-right: 3px solid #383838;
+    text-align: center;
+    padding-bottom: 2.5rem;
+}
+
+.content .leftbox img{
+    display: grid;
+    grid-row: 1;
+    grid-column: 1;
+    border-radius: 30px;
+    width: auto;
+    height: auto;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.content .leftbox h1{
+    color: rgb(255, 255, 255);
+    grid-row: 2;
+    text-decoration: underline;
+}
+
+.content .leftbox .leftText {
+    color: rgb(255, 255, 255);
+}
+
+.content .rightbox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 15px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding-bottom: 2.5rem;
+}
