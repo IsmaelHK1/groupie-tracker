@@ -66,23 +66,32 @@
                 </form>
             </div>
         </div>
-        {{range .}}
-        <div class="container">
-            <div class="card">
-                <a href="/groupie-tracker/{{.ID}}">
+
+        <div id="artistcliquable">
+            {{range .}}
+                <div class="cardArtist" id="{{.ID}}">
                     <div class="face face1">
-                        <div class="content">
-                            <img src="{{.Image}}">
-                        </div>
+                        <h2>{{.Name}}</h2>
                     </div>
-                </a>
-              <div class="face face2">
-                <h2>{{.Name}}</h2>
-              </div>
+                    <div class="face face2">
+                        <img src="{{.Image}}">
+                    </div>
+                </div>
+            {{end}}
+        </div>
+
+
+        <!-- <div class="card">
+            <div class="face face1">
+                <div class="content">
+                    <a href="/groupie-tracker/{{.ID}}"><h2>{{.Name}}</h2></a>
+                </div>
             </div>
-          </div>
-          {{end}}
-    </div>
+            <div class="face face2">
+                <img src="{{.Image}}">
+            </div>
+        </div>
+    </div> -->
 
     <footer>        
         <p>Copyright &copy;  Groupie Tracker 2020-2021</p>
