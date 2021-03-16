@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	structure "../structure"
+	"groupie-tracker/structure"
 )
 
 //retrieveJSON reads json from api link and returns json in []byte

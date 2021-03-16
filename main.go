@@ -8,8 +8,8 @@ import (
 	"strings"
 	"text/template"
 
-	structure "../groupie-tracker/structure"
-	tools "../groupie-tracker/tools"
+	"groupie-tracker/structure"
+	"groupie-tracker/tools"
 )
 
 //serveFile makes files available for the website
