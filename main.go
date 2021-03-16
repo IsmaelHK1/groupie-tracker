@@ -18,6 +18,7 @@ func serveFile() {
 	http.Handle("/main.css", fileServer)
 	http.Handle("/index.css", fileServer)
 	http.Handle("/artist.css", fileServer)
+	http.Handle("/header.css", fileServer)
 	http.Handle("/logo.png", fileServer)
 	http.Handle("/filtre.png", fileServer)
 }

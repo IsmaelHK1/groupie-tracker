@@ -1,0 +1,46 @@
+header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 80px;
+    grid-gap: 10px;
+    text-align: center;
+    font-size : 50px;
+    font-family: cursive;
+    width:100%;
+    background: #737dfe;
+}
+
+header #divLogo {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+header #divLogo a {
+    text-align: left;
+    float: left;
+    padding-left: 20px;
+}
+
+header #divLogo #logoImage {
+    float: left;
+    max-height: 70px;
+    margin: 5px;
+}
+
+header #divLogo #filterImage {
+    float: left;
+    max-height: 70px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* attention a merge avec le code de matteo */
+header #search {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 20px;
+	border: none;
+	border-bottom: 1px solid white;
+	background: rgb(0,210,255) 0% 0% no-repeat padding-box;
+    font-size: 25px;
+}
