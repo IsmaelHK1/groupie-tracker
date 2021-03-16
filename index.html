@@ -66,16 +66,22 @@
                 </form>
             </div>
         </div>
-        <div id="artistcliquable">
         {{range .}}
+        <div class="container">
+            <div class="card">
                 <a href="/groupie-tracker/{{.ID}}">
-                    <div class="cardArtist" id="{{.ID}}">
-                        <h2>{{.Name}}</h2>
-                        <img src="{{.Image}}">
+                    <div class="face face1">
+                        <div class="content">
+                            <img src="{{.Image}}">
+                        </div>
                     </div>
                 </a>
-        {{end}}
-        </div>
+              <div class="face face2">
+                <h2>{{.Name}}</h2>
+              </div>
+            </div>
+          </div>
+          {{end}}
     </div>
 
     <footer>        
@@ -84,6 +90,7 @@
     
 </body>
 
+<!-- les filtres -->
 <script>
     var bouton = document.querySelector("#filter");
     var divFilter = document.querySelector("#filterPage");
@@ -96,5 +103,4 @@
         }
     }
 </script>
-
 </html>
