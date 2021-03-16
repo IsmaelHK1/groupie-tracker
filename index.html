@@ -6,7 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
     
@@ -15,9 +14,9 @@
     <header class="accueil">
         <div id="divLogo">
             <a href="/groupie-tracker">
-                <img id="logo" src="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
+                <img id="logo" src="logo.png">
             </a>
-            <img id="filter" src="https://cdn.discordapp.com/attachments/785416497538269194/816304952925618207/filter.png">
+            <img id="filter" src="filtre.png">
         </div>
         <form method="POST">
             <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/>
@@ -70,7 +69,7 @@
 
         <div id="artistcliquable">
             {{range .}}
-                <a href="#" class="cardArtist" id="{{.ID}}">
+                <a href="/groupie-tracker/{{.ID}}" class="cardArtist">
                     <div class="face face1">
                         <h2>{{.Name}}</h2>
                     </div>
