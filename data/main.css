@@ -1,13 +1,12 @@
 * {
     margin:0;
     padding:0;
-    }
+    color: white;
+}
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
     background: black;
-    margin: 0px;
-    padding: 0px;
     width: 100%;
     padding-bottom: 35px;
 }
@@ -20,7 +19,6 @@ header {
     text-align: center;
     font-size : 50px;
     font-family: cursive;
-    color:white;
     width:100%;
     background: #737dfe;
 }
@@ -36,38 +34,26 @@ header #divLogo a {
     padding-left: 20px;
 }
 
-header #divLogo i {
-    height: 100px;
-    width: 100px;
-    float: left;
-    padding-top: 15px;
-}
-
-header #divLogo #logo {
+header #divLogo #logoImage {
     float: left;
     max-height: 70px;
     margin: 5px;
 }
 
-header #divLogo #filter {
+header #divLogo #filterImage {
     float: left;
     max-height: 70px;
     margin: 5px;
     cursor: pointer;
 }
 
-header .filterImg {
-    max-height: 70px;
-    margin: 5px;
-}
-
+/* attention a merge avec le code de matteo */
 header #search {
     grid-column: 2;
     grid-row: 1;
     margin: 20px;
 	border: none;
 	border-bottom: 1px solid white;
-	color: white;
 	background: rgb(0,210,255) 0% 0% no-repeat padding-box;
     font-size: 25px;
 }
@@ -86,7 +72,6 @@ a {
     text-decoration: none;
 }
 
-h2 {
-    color: white;
-    font-family: 'Noto Sans JP', sans-serif;
+ul {
+    list-style:none;
 }
