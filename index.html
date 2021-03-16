@@ -18,8 +18,10 @@
             </a>
             <img id="filter" src="filtre.png">
         </div>
+<body>
+    <div class="container">
+        <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/> 
         <form method="POST">
-            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/>
             <datalist id="list">
                 {{range .}}
                     <option value="{{.Name}} -Name">
@@ -37,7 +39,8 @@
                 {{end}}
             </datalist>
         </form>
-    </header>
+        <div class="search"></div>
+    </div>
 
     <div id="artistAndFilter">
         <div id="filterPage">
