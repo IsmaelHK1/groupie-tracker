@@ -15,8 +15,9 @@ import (
 //serveFile makes files available for the website
 func serveFile() {
 	fileServer := http.FileServer(http.Dir("./data"))
-	http.Handle("/style.css", fileServer)
-	http.Handle("/desc.css", fileServer)
+	http.Handle("/main.css", fileServer)
+	http.Handle("/index.css", fileServer)
+	http.Handle("/artist.css", fileServer)
 }
 
 func filters(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
@@ -94,7 +95,7 @@ func handleArtist(artists []structure.Artist) {
 //runServer sets the listenandserve port to 8080
 func runServer() {
 	fmt.Println("server is runing")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8880", nil); err != nil {
 		log.Fatal(err)
 	}
 }

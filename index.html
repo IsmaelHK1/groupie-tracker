@@ -4,10 +4,11 @@
     <title>Groupie tracker</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="icon" href="https://cdn.discordapp.com/attachments/785416497538269194/808653487181004840/logo_note.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+</head>
     
 
 <body class="accueil">
@@ -69,29 +70,16 @@
 
         <div id="artistcliquable">
             {{range .}}
-                <div class="cardArtist" id="{{.ID}}">
+                <a href="#" class="cardArtist" id="{{.ID}}">
                     <div class="face face1">
                         <h2>{{.Name}}</h2>
                     </div>
                     <div class="face face2">
                         <img src="{{.Image}}">
                     </div>
-                </div>
+                </a>
             {{end}}
         </div>
-
-
-        <!-- <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <a href="/groupie-tracker/{{.ID}}"><h2>{{.Name}}</h2></a>
-                </div>
-            </div>
-            <div class="face face2">
-                <img src="{{.Image}}">
-            </div>
-        </div>
-    </div> -->
 
     <footer>        
         <p>Copyright &copy;  Groupie Tracker 2020-2021</p>
@@ -99,7 +87,6 @@
     
 </body>
 
-<!-- les filtres -->
 <script>
     var bouton = document.querySelector("#filter");
     var divFilter = document.querySelector("#filterPage");
@@ -112,4 +99,5 @@
         }
     }
 </script>
+
 </html>
