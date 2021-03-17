@@ -10,14 +10,13 @@
     grid-gap: 35px;
     margin: 0 auto;
     padding: 40px 0;
-    background: #2A2A2E;
-
+    z-index: 90;
 }
 
 #allCardArtist .cardArtist {
     position: relative;
-    width: 250px;
-    height: 250px;
+    width: 230px;
+    height: 230px;
     margin: 0 auto;
     background: #000;
     border-radius: 70px;
@@ -37,7 +36,7 @@
 
 #allCardArtist .cardArtist:hover .face2{
     opacity: 0%;
-    transition: 0.7s;
+    transition: 0.5s;
     border-radius: 70px;
     
 }
@@ -48,17 +47,8 @@
 }
 
 #allCardArtist .cardArtist .face1 {
-    background: #000000;
+    background-color: black;
     border-radius: 70px;
-}
-
-#allCardArtist .cardArtist:hover .face1{
-    background: linear-gradient(
-      115deg,
-      #00F5FB 10%,
-      #ff00e3 55%,
-      #fff100 80%
-    );
 }
 
 .raise {

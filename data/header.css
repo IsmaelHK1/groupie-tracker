@@ -7,7 +7,8 @@ header {
 	font-size: 50px;
 	font-family: cursive;
 	width: 100%;
-	background: linear-gradient( 40deg, #00fffc 0%, #fc00ff 45%, #fffc00 100%);
+	/* background: linear-gradient( 40deg, #00fffc 0%, #fc00ff 45%, #fffc00 100%); */
+	background-color: #2A2A2E
 }
 
 header #divLogo {
