@@ -10,16 +10,6 @@ body {
     padding-bottom: 35px;
 }
 
-footer{
-    background: #9600FF;
-    text-align: center;
-    clear: both;
-    position: fixed;
-    bottom: 0;
-    width:100%;
-    height:30px;
-}
-
 a {
     text-decoration: none;
 }
