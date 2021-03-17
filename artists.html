@@ -17,16 +17,16 @@
             </a>
         </div>
     </header>
-    <div class="container">
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
+    <div class="AllCardInfos">
+        <div class="OneCardInfos">
+            <div class="BothCards TopCard">
+                <div class="Infos">
                     <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
                     <h3>{{.Name}}</h3>
                 </div>
             </div>
-            <div class="face face2">
-                <div class="content">
+            <div class="BothCards BottomCard">
+                <div class="Infos">
                     <h2>Date de création</h2>
                     <p>{{.CreationDate}}</p>
                     <h2>Date du premier album</h2>
@@ -34,15 +34,15 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/code_128.png?raw=true">
+        <div class="OneCardInfos">
+            <div class="BothCards TopCard">
+                <div class="Infos">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
                     <h3>Membres</h3>
                 </div>
             </div>
-            <div class="face face2">
-                <div class="content">
+            <div class="BothCards BottomCard">
+                <div class="Infos">
                     <ul>
                         {{range .Members}}
                         <li>{{.}}</li>
@@ -51,15 +51,15 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701274759594014/guitar-756326_960_720.png">
+        <div class="OneCardInfos">
+            <div class="BothCards TopCard">
+                <div class="Infos">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
                     <h3>Concerts</h3>
                 </div>
             </div>
-            <div class="face face2">
-                <div class="content">
+            <div class="BothCards BottomCard">
+                <div class="Infos">
                     <ul>
                         {{range $index, $element := .TabRelation}}
                             <li><h2>{{$index}}</h2>
