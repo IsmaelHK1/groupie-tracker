@@ -45,7 +45,7 @@
 
     <div class="artistAndFilter">
             <div class="filterMembers">
-                <h2>Filtrer les membres</h2>
+                <h2>Combien de membres ?</h2>
                 <form method="POST">
                     <div>
                         <input type="checkbox" label="1" name="OneMember"> <label>1</label>
@@ -58,7 +58,7 @@
                     </div>
             </div>
             <div class="filterDates">
-                <p>date de création</p>
+                <h2>Quelle date de création ?</h2>
                 <div>
                     <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
                     <output>1958</output>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="filterSubmit">
-                <input name="submit" type="submit">
+                <input class="raise" name="submit" type="submit">
                 </form>
             </div>
     </div>

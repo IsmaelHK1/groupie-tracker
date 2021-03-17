@@ -60,3 +60,21 @@
       #fff100 80%
     );
 }
+
+.raise {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    padding: 1em 2em;
+    transition: 0.25s;
+    border-color: rgb(255, 255, 255);
+    color: #fff;
+}
+
+.raise:hover,
+.raise:focus {
+    box-shadow: 1px 1px 10px 10px white;
+    transform: translateY(-0.25em);
+}
