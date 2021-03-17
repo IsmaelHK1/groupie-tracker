@@ -1,84 +1,74 @@
 header {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 80px;
-    grid-gap: 10px;
-    text-align: center;
-    font-size : 50px;
-    font-family: cursive;
-    width:100%;
-    background: linear-gradient(
-      40deg,
-      #00fffc 0%,
-      #fc00ff 45%,
-      #fffc00 100%
-    );
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 80px;
+	grid-gap: 10px;
+	text-align: center;
+	font-size: 50px;
+	font-family: cursive;
+	width: 100%;
+	background: linear-gradient( 40deg, #00fffc 0%, #fc00ff 45%, #fffc00 100%);
 }
 
 header #divLogo {
-    grid-column: 1;
-    grid-row: 1;
+	grid-column: 1;
+	grid-row: 1;
 }
 
 header #divLogo a {
-    text-align: left;
-    float: left;
-    padding-left: 20px;
+	text-align: left;
+	float: left;
+	padding-left: 20px;
 }
 
 header #divLogo #logoImage {
-    float: left;
-    max-height: 70px;
-    margin: 5px;
+	float: left;
+	max-height: 70px;
+	margin: 5px;
 }
 
 header #divLogo #filterImage {
-    float: left;
-    max-height: 70px;
-    margin: 5px;
-    cursor: pointer;
+	float: left;
+	max-height: 70px;
+	margin: 5px;
+	cursor: pointer;
 }
 
 header #formSearchBar {
-  grid-column: 2;
-  grid-row: 1;
-  margin: auto;
-  background: #2f3640;
-  border-radius: 40px;
-
-}
-
-#formSearchBar:hover > .searchInput {
-  width: 240px;
-  padding: 0 6px;
-}
-
-.searchButton {
-  float: right;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #2f3640;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-}
-
-.searchInput {
-  border:none;
-  background: none;
-  outline:none;
-  float:left;
-  padding: 0;
-  color: white;
-  font-size: 16px;
-  transition: 0.4s;
-  line-height: 40px;
-  width: 0px;
+	grid-column: 2;
+	grid-row: 1;
+	margin: auto;
+	background: #2f3640;
+	border-radius: 40px;
 
 }
 
 #loupe {
-  width: 42px;
+	width: 56px;
+}
+
+.searchButton {
+    float: right;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+	background: #2f3640;
+}
+
+#searchInput {
+    border:none;
+    background: none;
+    outline:none;
+    float:left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 55px;
+    width: 0px;
+
 }
