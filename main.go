@@ -23,7 +23,6 @@ func serveFile() {
 	http.Handle("/logo.png", fileServer)
 	http.Handle("/filtre.png", fileServer)
 	http.Handle("/poly_bg.png", fileServer)
-	http.Handle("/favicon.png", fileServer)
 }
 
 func filters(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
