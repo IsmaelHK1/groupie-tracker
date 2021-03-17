@@ -11,7 +11,6 @@
 </head>
     
 <body>
-<!-- faire form en js : listeneer add event : requ ajax post -->
 <form method="POST">
     <div class="container">
             <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/> 
@@ -59,25 +58,26 @@
                         <input type="checkbox" label="6" name="SixMember">  <label>6</label>
                         <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
                     </div>
-                <p>date de création</p>
-                <div>
-                    <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                    <output>1958</output>
-                </div>
-                <div>
-                    <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                    <output>2015</output>
-                </div>
-                <input name="submit" type="submit">
+                    <p>date de création</p>
+                    <div>
+                        <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                        <output>1958</output>
+                    </div>
+                    <div>
+                        <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                        <output>2015</output>
+                    </div>
+                    <input name="submit" type="submit">
                 </form>
             </div>
         </div>
+    </div>
 
         <div id="allCardArtist">
             {{range .}}
                 <a href="/groupie-tracker/{{.ID}}" class="cardArtist" id="{{.ID}}">
                     <div class="face face1">
-                        <h2>{{.Name}}</h2>
+                        <h2 class="nom">{{.Name}}</h2>
                     </div>
                     <div class="face face2">
                         <img src="{{.Image}}">

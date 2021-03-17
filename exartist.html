@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Groupie Tracker</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <link rel="stylesheet" type="text/css" href="/artist.css">
+    <link rel="stylesheet" type="text/css" href="/header.css">
+</head>
+
+<body>
+    <header>
+        <div id="divLogo">
+            <a href="/groupie-tracker">
+                <img id="logoImage" src="/logo.png">
+            </a>
+        </div>
+        <h2>{{.Name}}</h2>
+    </header>
+
+    <div class="content">
+        <div class="leftbox">
+            <img src="{{.Image}}">
+            <h1>Date de création</h1>
+            <p class="leftText">{{.CreationDate}}</p>
+            <h1>Date du premier album</h1>
+            <p class="leftText">{{.FirstAlbum}}</p>
+        </div>
+        
+        <div class="rightbox">
+            <h1>Membres</h1> 
+            <ul>
+                {{range .Members}}
+                <li>{{.}}</li>
+                {{end}}
+            </ul>
+            <h1>Concerts</h1>
+            <ul>
+                {{range $index, $element := .TabRelation}}
+                    <li>{{$index}}
+                        <ul>
+                            {{range $element}}
+                                <li>{{.}}</li>
+                            {{end}}
+                        </ul>
+                    </li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+
+    <footer>        
+        <p>Copyright &copy;  Groupie Tracker 2020-2021</p>
+    </footer>
+</body>
+</html>

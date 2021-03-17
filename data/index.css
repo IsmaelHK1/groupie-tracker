@@ -1,3 +1,7 @@
+.nom {
+    color: white;
+}
+
 #artistAndFilter {
     display: flex;
     flex-direction: row;
@@ -17,7 +21,7 @@
     grid-gap: 35px;
     margin: 0 auto;
     padding: 40px 0;
-    background: black;
+    background: #2A2A2E;
 
 }
 
@@ -46,8 +50,9 @@
 
 #allCardArtist .cardArtist:hover .face2{
     opacity: 0%;
-    transition: 0.4s;
+    transition: 0.7s;
     border-radius: 70px;
+    
 }
 
 #allCardArtist .cardArtist img {
@@ -56,6 +61,15 @@
 }
 
 #allCardArtist .cardArtist .face1 {
-    background: black;
+    background: #000000;
     border-radius: 70px;
+}
+
+#allCardArtist .cardArtist:hover .face1{
+    background: linear-gradient(
+      115deg,
+      #00F5FB 10%,
+      #ff00e3 55%,
+      #fff100 80%
+    );
 }

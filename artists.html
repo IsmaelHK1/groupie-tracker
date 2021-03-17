@@ -6,10 +6,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/main.css">
-    <link rel="stylesheet" type="text/css" href="/artist.css">
+    <link rel="stylesheet" type="text/css" href="/artists.css">
     <link rel="stylesheet" type="text/css" href="/header.css">
 </head>
-
 <body>
     <header>
         <div id="divLogo">
@@ -17,42 +16,64 @@
                 <img id="logoImage" src="/logo.png">
             </a>
         </div>
-        <h2>{{.Name}}</h2>
     </header>
-
-    <div class="content">
-        <div class="leftbox">
-            <img src="{{.Image}}">
-            <h1>Date de création</h1>
-            <p class="leftText">{{.CreationDate}}</p>
-            <h1>Date du premier album</h1>
-            <p class="leftText">{{.FirstAlbum}}</p>
+    <div class="container">
+        <div class="card">
+            <div class="face face1">
+                <div class="content">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
+                    <h3>{{.Name}}</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <h2>Date de création</h2>
+                    <p>{{.CreationDate}}</p>
+                    <h2>Date du premier album</h2>
+                    <p >{{.FirstAlbum}}</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="rightbox">
-            <h1>Membres</h1> 
-            <ul>
-                {{range .Members}}
-                <li>{{.}}</li>
-                {{end}}
-            </ul>
-            <h1>Concerts</h1>
-            <ul>
-                {{range $index, $element := .TabRelation}}
-                    <li>{{$index}}
-                        <ul>
-                            {{range $element}}
-                                <li>{{.}}</li>
-                            {{end}}
-                        </ul>
-                    </li>
-                {{end}}
-            </ul>
+        <div class="card">
+            <div class="face face1">
+                <div class="content">
+                    <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/code_128.png?raw=true">
+                    <h3>Membres</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <ul>
+                        {{range .Members}}
+                        <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="face face1">
+                <div class="content">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701274759594014/guitar-756326_960_720.png">
+                    <h3>Concerts</h3>
+                </div>
+            </div>
+            <div class="face face2">
+                <div class="content">
+                    <ul>
+                        {{range $index, $element := .TabRelation}}
+                            <li><h2>{{$index}}</h2>
+                                <ul>
+                                    {{range $element}}
+                                        <li>{{.}}</li>
+                                    {{end}}
+                                </ul>
+                            </li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
-    <footer>        
-        <p>Copyright &copy;  Groupie Tracker 2020-2021</p>
-    </footer>
 </body>
 </html>

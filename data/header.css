@@ -7,7 +7,12 @@ header {
     font-size : 50px;
     font-family: cursive;
     width:100%;
-    background: #8b1212;
+    background: linear-gradient(
+      40deg,
+      #00fffc 0%,
+      #fc00ff 45%,
+      #fffc00 100%
+    );
 }
 
 header #divLogo {
@@ -63,7 +68,7 @@ header #divLogo #filterImage {
     left: 0;
     width: 70px;
     height: 70px;
-    background:rgb(2, 134, 163);
+    background:rgb(58, 58, 58);
     border-radius: 50%;
     transition: all 1s;
     z-index: 4;
@@ -109,12 +114,12 @@ header #divLogo #filterImage {
     height: 50px;
     outline: none;
     border: none;
-    background: rgb(2, 134, 163);
+    background: rgb(58, 58, 58);
     color: white;
-    text-shadow: 0 0 10px rgb(2, 134, 163);
+    text-shadow: 0 0 10px rgb(58, 58, 58);
     padding: 0 80px 0 20px;
     border-radius: 30px;
-    box-shadow: 0 0 25px 0 rgb(2, 134, 163),
+    box-shadow: 0 0 25px 0 rgb(58, 58, 58),
                 0 20px 25px 0 rgba(0, 0, 0, 0.2);
     transition: all 1s;
     opacity: 0;
