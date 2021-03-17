@@ -12,9 +12,18 @@
 </head>
     
 <body>
-<form method="POST">
-    <div class="container">
-            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/> 
+    <header>
+        <div id="divLogo">
+            <a href="/groupie-tracker">
+                <img id="logoImage" src="logo.png">
+            </a>
+            <img id="filterImage" src="filtre.png">
+        </div>
+        <form method="POST" id="formSearchBar">
+            <input list="list" class="searchInput" id="search" type="text" name="search" placeholder="Rechercher" autocomplete="off"/>
+            <button class="searchButton" href="#">
+                <img src="https://cdn.discordapp.com/attachments/785416497538269194/821762035599671356/search_logo.png" id="loupe">
+            </button>
             <datalist id="list">
                 {{range .}}
                     <option value="{{.Name}} -Name">
@@ -31,18 +40,7 @@
                     {{end}}
                 {{end}}
             </datalist>
-        <div class="search">
-        </div>
-    </div>
-</form>
-
-    <header>
-        <div id="divLogo">
-            <a href="/groupie-tracker">
-                <img id="logoImage" src="logo.png">
-            </a>
-            <img id="filterImage" src="filtre.png">
-        </div>  
+        </form>
     </header>
 
     <div id="artistAndFilter">
