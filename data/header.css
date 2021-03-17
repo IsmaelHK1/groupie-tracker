@@ -7,7 +7,7 @@ header {
     font-size : 50px;
     font-family: cursive;
     width:100%;
-    background: #737dfe;
+    background: #8b1212;
 }
 
 header #divLogo {
@@ -33,17 +33,6 @@ header #divLogo #filterImage {
     margin: 5px;
     cursor: pointer;
 }
-
-/* attention a merge avec le code de matteo */
-/* header #search {
-    grid-column: 2;
-    grid-row: 1;
-    margin: 20px;
-	border: none;
-	border-bottom: 1px solid white;
-	background: rgb(0,210,255) 0% 0% no-repeat padding-box;
-    font-size: 25px;
-} */
 
 /* seachbar */
 

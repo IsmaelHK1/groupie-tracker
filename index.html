@@ -11,8 +11,9 @@
 </head>
     
 <body>
+<!-- faire form en js : listeneer add event : requ ajax post -->
+<form method="POST">
     <div class="container">
-        <form method="POST">
             <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/> 
             <datalist id="list">
                 {{range .}}
@@ -30,10 +31,10 @@
                     {{end}}
                 {{end}}
             </datalist>
-        </form>
         <div class="search">
         </div>
     </div>
+</form>
 
     <header>
         <div id="divLogo">
