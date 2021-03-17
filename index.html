@@ -121,8 +121,11 @@
     var searchImage = document.querySelector("#formSearchBar");
     var searchInput = document.querySelector("#searchInput");
     var imageLoupe = document.querySelector("#loupe")
+    var filterImage = document.querySelector("#filterImage");
+    var artistAndFilter = document.querySelector(".artistAndFilter");
 
     searchImage.addEventListener("mouseenter", openSearchBar);
+    filterImage.addEventListener("click", openFilters)
 
     function openSearchBar() {
         if (searchInput.style.width == "240px"){
@@ -133,6 +136,13 @@
             searchInput.style.width = "240px"
             searchInput.style.padding = "0 6px"
             imageLoupe.style.opacity = "0"
+        }
+    }
+    function openFilters() {
+        if (artistAndFilter.style.display == "grid"){
+            artistAndFilter.style.display = "none"
+        } else {
+            artistAndFilter.style.display = "grid"
         }
     }
 </script>

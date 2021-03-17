@@ -78,7 +78,7 @@ header #formSearchBar {
 /* Filters */
 
 .artistAndFilter {
-	display: grid;
+	display: none;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 100px;
 	grid-gap: 10px;
