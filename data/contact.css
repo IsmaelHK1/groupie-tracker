@@ -1,0 +1,68 @@
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5em;
+    vertical-align: center;
+}
+.firstname {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5em;
+    vertical-align: center;
+}
+
+.lastname {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5em;
+    vertical-align: center;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5em;
+    vertical-align: center;
+}   
+
+.email {
+    display: flex;
+    justify-content: center;
+    min-height: 5em;
+    align-items: center;
+    vertical-align: center;
+}
+
+.contactSubmit {
+    display: flex;
+    justify-content: center;
+    min-height: 5em;
+    align-items: center;
+    vertical-align: center;
+    background: none;
+    box-sizing: border-box;
+}
+
+button {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    padding: 1em 2em;
+}
+.contactSubmit:hover, 
+.contactSubmit:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(#fff,0);
+}
+
+code { 
+    color: #e4cb58;
+    font: inherit;
+  }
