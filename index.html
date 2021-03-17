@@ -12,9 +12,18 @@
 </head>
     
 <body>
-<form method="POST">
-    <div class="container">
-            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/> 
+    <header>
+        <div id="divLogo">
+            <a href="/groupie-tracker">
+                <img id="logoImage" src="logo.png">
+            </a>
+            <img id="filterImage" src="filtre.png">
+        </div>  
+        <form method="POST" id="formSearchBar">
+            <input list="list" id="searchInput" type="text" name="search" placeholder="Rechercher" autocomplete="off"/>
+            <div class="searchButton" href="#">
+                <img src="https://cdn.discordapp.com/attachments/785416497538269194/821762035599671356/search_logo.png" id="loupe">
+            </div>
             <datalist id="list">
                 {{range .}}
                     <option value="{{.Name}} -Name">
@@ -31,18 +40,7 @@
                     {{end}}
                 {{end}}
             </datalist>
-        <div class="search">
-        </div>
-    </div>
-</form>
-
-    <header>
-        <div id="divLogo">
-            <a href="/groupie-tracker">
-                <img id="logoImage" src="logo.png">
-            </a>
-            <img id="filterImage" src="filtre.png">
-        </div>  
+        </form>
     </header>
 
     <div id="artistAndFilter">
@@ -87,42 +85,57 @@
             {{end}}
         </div>
     <footer>
-            <svg viewBox="0 0 120 28">
-             <defs> 
-               <mask id="xxx">
-                 <circle cx="7" cy="12" r="40" fill="#fff" />
-               </mask>
-               
-               <filter id="goo">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                  <feColorMatrix in="blur" mode="matrix" values="
-                       1 0 0 0 0  
-                       0 1 0 0 0  
-                       0 0 1 0 0  
-                       0 0 0 13 -9" result="goo" />
-                  <feBlend in="SourceGraphic" in2="goo" />
+        <svg viewBox="0 0 120 28">
+            <defs> 
+                <mask id="xxx">
+                    <circle cx="7" cy="12" r="40" fill="#fff" />
+                </mask>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="
+                        1 0 0 0 0  
+                        0 1 0 0 0  
+                        0 0 1 0 0  
+                        0 0 0 13 -9" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
                 </filter>
-                 <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
+                <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
             </defs> 
             
-               <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
-               <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>
-               
-              <g class="gooeff">
-              <circle class="drop drop1" cx="20" cy="2" r="1.8"  />
-              <circle class="drop drop2" cx="25" cy="2.5" r="1.5"  />
-              <circle class="drop drop3" cx="16" cy="2.8" r="1.2"  />
-                <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
-            </svg>
-            
-              <div>Copyright &copy;  Groupie Tracker 2020-2021</div>
+            <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
+            <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>   
+            <g class="gooeff">
+            <circle class="drop drop1" cx="20" cy="2" r="1.8"  />
+            <circle class="drop drop2" cx="25" cy="2.5" r="1.5"  />
+            <circle class="drop drop3" cx="16" cy="2.8" r="1.2"  />
+            <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
+        </svg>    
+        <div>Copyright &copy;  Groupie Tracker 2020-2021</div>
     </footer>
 </body>
 
 <script>
     var bouton = document.querySelector("#filterImage");
     var divFilter = document.querySelector("#filterPage");
+    var searchImage = document.querySelector("#formSearchBar");
+    var searchInput = document.querySelector("#searchInput");
+    var imageLoupe = document.querySelector("#loupe")
+
     bouton.addEventListener("click", openFilter);
+    searchImage.addEventListener("mouseenter", openSearchBar);
+
+    function openSearchBar() {
+        if (searchInput.style.width == "240px"){
+            searchInput.style.width = "0px"
+            searchInput.style.padding = "0"
+            imageLoupe.style.opacity = "100%"
+        } else {
+            searchInput.style.width = "240px"
+            searchInput.style.padding = "0 6px"
+            imageLoupe.style.opacity = "0"
+        }
+    }
+
     function openFilter() {
         if (divFilter.style.display == "inline") {
             divFilter.style.display = "none"
