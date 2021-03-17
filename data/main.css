@@ -5,7 +5,8 @@
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
-    background: #2A2A2E;
+    background-image: url("/poly_bg.png");
+    background-attachment: fixed;
     width: 100%;
     padding-bottom: 35px;
 }
