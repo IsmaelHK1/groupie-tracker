@@ -34,6 +34,7 @@ header #divLogo #filterImage {
 	cursor: pointer;
 }
 
+/* Search Bar  */
 header #formSearchBar {
 	grid-column: 2;
 	grid-row: 1;
@@ -71,4 +72,30 @@ header #formSearchBar {
     line-height: 55px;
     width: 0px;
 
+}
+
+/* Filters */
+
+.artistAndFilter {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 100px;
+	grid-gap: 10px;
+	color: white;
+}
+
+.filterMembers {
+	grid-column: 1;
+	grid-row: 1;
+	text-align: center;
+}
+
+.filterDates {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.filterSubmit {
+	grid-column: 3;
+	grid-row: 1;
 }

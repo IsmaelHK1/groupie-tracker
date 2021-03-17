@@ -2,17 +2,6 @@
     color: white;
 }
 
-#artistAndFilter {
-    display: flex;
-    flex-direction: row;
-}
-
-#filterPage {
-    border-right: 3px solid rgb(0,4,255);
-    position: absolute, fixed;
-    display: none;
-}
-
 #allCardArtist {
     position: relative;
     max-width: 100vw;
@@ -45,8 +34,6 @@
     justify-content: center;
     align-items: center;
 }
-
-
 
 #allCardArtist .cardArtist:hover .face2{
     opacity: 0%;

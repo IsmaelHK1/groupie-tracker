@@ -43,10 +43,9 @@
         </form>
     </header>
 
-    <div id="artistAndFilter">
-        <div id="filterPage">
-            <div id="filterPage2">
-                <p>membres</p>
+    <div class="artistAndFilter">
+            <div class="filterMembers">
+                <h2>Filtrer les membres</h2>
                 <form method="POST">
                     <div>
                         <input type="checkbox" label="1" name="OneMember"> <label>1</label>
@@ -57,19 +56,22 @@
                         <input type="checkbox" label="6" name="SixMember">  <label>6</label>
                         <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
                     </div>
-                    <p>date de création</p>
-                    <div>
-                        <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                        <output>1958</output>
-                    </div>
-                    <div>
-                        <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                        <output>2015</output>
-                    </div>
-                    <input name="submit" type="submit">
+            </div>
+            <div class="filterDates">
+                <p>date de création</p>
+                <div>
+                    <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                    <output>1958</output>
+                </div>
+                <div>
+                    <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                    <output>2015</output>
+                </div>
+            </div>
+            <div class="filterSubmit">
+                <input name="submit" type="submit">
                 </form>
             </div>
-        </div>
     </div>
 
         <div id="allCardArtist">
@@ -115,13 +117,10 @@
 </body>
 
 <script>
-    var bouton = document.querySelector("#filterImage");
-    var divFilter = document.querySelector("#filterPage");
     var searchImage = document.querySelector("#formSearchBar");
     var searchInput = document.querySelector("#searchInput");
     var imageLoupe = document.querySelector("#loupe")
 
-    bouton.addEventListener("click", openFilter);
     searchImage.addEventListener("mouseenter", openSearchBar);
 
     function openSearchBar() {
@@ -133,14 +132,6 @@
             searchInput.style.width = "240px"
             searchInput.style.padding = "0 6px"
             imageLoupe.style.opacity = "0"
-        }
-    }
-
-    function openFilter() {
-        if (divFilter.style.display == "inline") {
-            divFilter.style.display = "none"
-        } else {
-            divFilter.style.display = "inline"
         }
     }
 </script>
