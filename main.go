@@ -24,6 +24,7 @@ func serveFile() {
 	http.Handle("/filtre.png", fileServer)
 	http.Handle("/poly_bg.png", fileServer)
 	http.Handle("/favicon.png", fileServer)
+	http.Handle("/contact.css", fileServer)
 }
 
 func filters(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
@@ -85,11 +86,28 @@ func handleGroupieTracker(artists []structure.Artist) {
 	})
 }
 
+func handleContact(artists []structure.Artist) {
+	http.HandleFunc("/groupie-tracker/contact.html", func(w http.ResponseWriter, r *http.Request) {
+
+		variable, _ := template.ParseFiles("contact.html")
+		var TabToPrint []structure.Artist
+
+		if r.FormValue("submit") == "Envoyer" {
+			filters(artists, TabToPrint, variable, w, r)
+		} else if r.FormValue("search") != "" {
+			searchBar(artists, TabToPrint, variable, w, r)
+		} else {
+			variable.Execute(w, artists)
+		}
+
+	})
+}
+
 //handleArtist is the handle function for the artist page (artists.html)
 func handleArtist(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/groupie-tracker/artist/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
-		ArtistPath := r.URL.Path[17:]
+		ArtistPath := r.URL.Path[24:]
 		IDArtist, _ := strconv.Atoi(ArtistPath)
 		IDArtist--
 
@@ -97,6 +115,14 @@ func handleArtist(artists []structure.Artist) {
 		variable.Execute(w, artists[IDArtist])
 	})
 }
+
+func handleMerci(artists []structure.Artist) {
+	http.HandleFunc("/groupie-tracker/contact.html/merci.html", func(w http.ResponseWriter, r *http.Request) {
+		variable, _ := template.ParseFiles("merci.html")
+		variable.Execute(w, artists[1])
+	})
+}
+
 
 //runServer sets the listenandserve port to 8080
 func runServer() {
@@ -111,5 +137,8 @@ func main() {
 	jsonArtist := tools.ParseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists")
 	handleGroupieTracker(jsonArtist)
 	handleArtist(jsonArtist)
+	handleContact(jsonArtist)
+	handleMerci(jsonArtist)
 	runServer()
+	
 }

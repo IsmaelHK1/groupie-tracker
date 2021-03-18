@@ -19,6 +19,9 @@
                 <img id="logoImage" src="logo.png">
             </a>
             <img id="filterImage" src="filtre.png">
+            <a href="/groupie-tracker/contact.html">
+                <button>Contactez-nous</button>
+            </a>
         </div>  
         <form method="POST" id="formSearchBar">
             <input list="list" id="searchInput" type="text" name="search" placeholder="Rechercher" autocomplete="off"/>
@@ -77,7 +80,7 @@
 
         <div id="allCardArtist">
             {{range .}}
-                <a href="/groupie-tracker/{{.ID}}" class="cardArtist" id="{{.ID}}">
+                <a href="/groupie-tracker/artist/{{.ID}}" class="cardArtist" id="{{.ID}}">
                     <div class="face face1">
                         <h2 class="nom">{{.Name}}</h2>
                     </div>
