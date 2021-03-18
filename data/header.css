@@ -21,7 +21,7 @@ header #divLogo a {
 	padding-left: 20px;
 }
 
-header #divLogo #logoImage {
+header #divLogo a #logoImage {
 	float: left;
 	max-height: 70px;
 	margin: 5px;
@@ -34,7 +34,7 @@ header #divLogo #filterImage {
 	cursor: pointer;
 }
 
-header #divLogo #mailImage {
+header #divLogo a #mailImage {
     width: 80px;
 }
 
@@ -45,26 +45,13 @@ header #formSearchBar {
 	margin: auto;
 	background: #2f3640;
 	border-radius: 40px;
-
 }
 
-#loupe {
+header #formSearchBar .searchButton #loupe {
 	width: 56px;
 }
 
-.searchButton {
-    float: right;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.4s;
-	background: #2f3640;
-}
-
-#searchInput {
+header #formSearchBar #searchInput {
     border:none;
     background: none;
     outline:none;
@@ -78,29 +65,14 @@ header #formSearchBar {
 
 }
 
-/* Filters */
-
-.artistAndFilter {
-	display: none;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 100px;
-	grid-gap: 10px;
-	color: white;
-}
-
-.filterMembers {
-	grid-column: 1;
-	grid-row: 1;
-	text-align: center;
-}
-
-.filterDates {
-	grid-column: 2;
-	grid-row: 1;
-	text-align: center;
-}
-
-.filterSubmit {
-	grid-column: 3;
-	grid-row: 1;
+header #formSearchBar .searchButton {
+    float: right;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+	background: #2f3640;
 }

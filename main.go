@@ -27,6 +27,7 @@ func serveFile() {
 	http.Handle("/contact.css", fileServer)
 }
 
+//filters is the function to manage filters 
 func filters(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
 	minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
 	maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
@@ -35,6 +36,7 @@ func filters(artists, TabToPrint []structure.Artist, variable *template.Template
 			TabToPrint = append(TabToPrint, artists[i])
 		}
 	}
+	//without filters, it's executed with artists ([]Artist)
 	if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
 		variable.Execute(w, artists)
 	} else {
@@ -42,6 +44,7 @@ func filters(artists, TabToPrint []structure.Artist, variable *template.Template
 	}
 }
 
+//searchBar is the function to manage the search bar 
 func searchBar(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
 	filter := r.FormValue("search")
 	for i := 0; i < len(artists); i++ {
@@ -82,24 +85,6 @@ func handleGroupieTracker(artists []structure.Artist) {
 		} else {
 			variable.Execute(w, artists)
 		}
-
-	})
-}
-
-func handleContact(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker/contact.html", func(w http.ResponseWriter, r *http.Request) {
-
-		variable, _ := template.ParseFiles("contact.html")
-		var TabToPrint []structure.Artist
-
-		if r.FormValue("submit") == "Envoyer" {
-			filters(artists, TabToPrint, variable, w, r)
-		} else if r.FormValue("search") != "" {
-			searchBar(artists, TabToPrint, variable, w, r)
-		} else {
-			variable.Execute(w, artists)
-		}
-
 	})
 }
 
@@ -116,6 +101,15 @@ func handleArtist(artists []structure.Artist) {
 	})
 }
 
+//handleContact is the handle function for the contact page
+func handleContact(artists []structure.Artist) {
+	http.HandleFunc("/groupie-tracker/contact.html", func(w http.ResponseWriter, r *http.Request) {
+		variable, _ := template.ParseFiles("contact.html")
+		variable.Execute(w, artists[1])
+	})
+}
+
+//handleMerci is the handle function for the page which displays "merci"
 func handleMerci(artists []structure.Artist) {
 	http.HandleFunc("/groupie-tracker/contact.html/merci.html", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("merci.html")
@@ -139,5 +133,4 @@ func main() {
 	handleContact(jsonArtist)
 	handleMerci(jsonArtist)
 	runServer()
-
 }

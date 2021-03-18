@@ -10,12 +10,12 @@
     font-size: x-large;
 }
 
-#texte {
+.box div #texte {
     padding-left: 25px;
     border-radius: 10px;
 }
 
-.raise {
+.box div a .raise {
     background: none;
     border: 2px solid;
     font: inherit;
@@ -27,16 +27,19 @@
     color: #fff;
 }
 
-.raise:hover,
-.raise:focus {
+.box div a .raise:hover,
+.box div a .raise:focus {
     box-shadow: 1px 1px 10px 10px white;
     transform: translateY(-0.25em);
 }
 
+/* thanks page  */
+
 .merci  {
+    font-family: 'Dancing Script', cursive;
     text-decoration: none;
     color: white;
-    font-size: xx-large;
+    font-size: 9em;
     font-weight: 900;
     text-align: center;
 }

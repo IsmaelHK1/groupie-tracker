@@ -48,48 +48,49 @@
     </header>
 
     <div class="artistAndFilter">
-            <div class="filterMembers">
-                <h2>Combien de membres ?</h2>
-                <form method="POST">
-                    <div>
-                        <input type="checkbox" label="1" name="OneMember"> <label>1</label>
-                        <input type="checkbox" label="2" name="TwoMember">  <label>2</label>
-                        <input type="checkbox" label="3" name="ThreeMember"> <label>3</label>
-                        <input type="checkbox" label="4" name="FourMember"> <label>4</label>
-                        <input type="checkbox" label="5" name="FiveMember"> <label>5</label>
-                        <input type="checkbox" label="6" name="SixMember">  <label>6</label>
-                        <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
-                    </div>
+        <div class="filterMembers">
+        <form method="POST">
+            <h2>Combien de membres ?</h2>
+            <div>
+                <input type="checkbox" label="1" name="OneMember"> <label>1</label>
+                <input type="checkbox" label="2" name="TwoMember">  <label>2</label>
+                <input type="checkbox" label="3" name="ThreeMember"> <label>3</label>
+                <input type="checkbox" label="4" name="FourMember"> <label>4</label>
+                <input type="checkbox" label="5" name="FiveMember"> <label>5</label>
+                <input type="checkbox" label="6" name="SixMember">  <label>6</label>
+                <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
             </div>
-            <div class="filterDates">
-                <h2>Quelle date de création ?</h2>
-                <div>
-                    <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                    <output>1958</output>
-                </div>
-                <div>
-                    <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                    <output>2015</output>
-                </div>
+        </div>
+        <div class="filterDates">
+            <h2>Quelle date de création ?</h2>
+            <div>
+                <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                <output>1958</output>
             </div>
-            <div class="filterSubmit">
-                <input class="raise" name="submit" type="submit">
-                </form>
+            <div>
+                <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                <output>2015</output>
             </div>
+        </div>
+        <div class="filterSubmit">
+            <input class="raise" name="submit" type="submit">
+        </div>
+        </form>
     </div>
 
-        <div id="allCardArtist">
-            {{range .}}
-                <a href="/groupie-tracker/artist/{{.ID}}" class="cardArtist" id="{{.ID}}">
-                    <div class="face face1">
-                        <h2 class="nom">{{.Name}}</h2>
-                    </div>
-                    <div class="face face2">
-                        <img src="{{.Image}}">
-                    </div>
-                </a>
-            {{end}}
-        </div>
+    <div id="allCardArtist">
+    {{range .}}
+        <a href="/groupie-tracker/artist/{{.ID}}" class="cardArtist" id="{{.ID}}">
+            <div class="face face1">
+                <h2 class="artistName">{{.Name}}</h2>
+            </div>
+            <div class="face face2">
+                <img src="{{.Image}}">
+            </div>
+        </a>
+    {{end}}
+    </div>
+
     <footer>
         <svg viewBox="0 0 120 28">
             <defs> 

@@ -1,6 +1,48 @@
-.nom {
-    color: white;
+.artistAndFilter {
+	display: none;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 100px;
+	grid-gap: 10px;
+	color: white;
 }
+
+.artistAndFilter .filterMembers {
+	grid-column: 1;
+	grid-row: 1;
+	text-align: center;
+}
+
+.artistAndFilter .filterDates {
+	grid-column: 2;
+	grid-row: 1;
+	text-align: center;
+}
+
+.artistAndFilter .filterSubmit {
+	grid-column: 3;
+	grid-row: 1;
+}
+
+.raise {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    padding: 1em 2em;
+    transition: 0.25s;
+    border-color: rgb(255, 255, 255);
+    color: #fff;
+}
+
+.raise:hover,
+.raise:focus {
+    box-shadow: 1px 1px 10px 10px white;
+    transform: translateY(-0.25em);
+}
+
+/* ------------------------ */
+
 
 #allCardArtist {
     position: relative;
@@ -21,6 +63,10 @@
     background: #000;
     border-radius: 70px;
     text-align: center;
+}
+
+#allCardArtist .cardArtist .artistName {
+    color: white;
 }
 
 #allCardArtist .cardArtist .face{
@@ -49,22 +95,4 @@
 #allCardArtist .cardArtist .face1 {
     background-color: black;
     border-radius: 70px;
-}
-
-.raise {
-    background: none;
-    border: 2px solid;
-    font: inherit;
-    line-height: 1;
-    margin: 0.5em;
-    padding: 1em 2em;
-    transition: 0.25s;
-    border-color: rgb(255, 255, 255);
-    color: #fff;
-}
-
-.raise:hover,
-.raise:focus {
-    box-shadow: 1px 1px 10px 10px white;
-    transform: translateY(-0.25em);
 }

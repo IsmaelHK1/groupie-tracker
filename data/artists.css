@@ -1,3 +1,7 @@
+.Infos {
+    color: white;
+}
+
 .AllCardInfos{
     display: flex;
     justify-content: center;
@@ -70,8 +74,4 @@
 .AllCardInfos .OneCardInfos .BothCards.BottomCard .Infos p{
     margin: 0;
     padding: 0;
-}
-
-.Infos {
-    color: white;
 }
