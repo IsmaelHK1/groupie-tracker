@@ -17,12 +17,17 @@ func serveFile() {
 	fileServer := http.FileServer(http.Dir("./data"))
 	http.Handle("/main.css", fileServer)
 	http.Handle("/index.css", fileServer)
-	http.Handle("/artist.css", fileServer)
-	http.Handle("/filtre.png", fileServer)
+	http.Handle("/artists.css", fileServer)
+	http.Handle("/header.css", fileServer)
+	http.Handle("/footer.css", fileServer)
 	http.Handle("/logo.png", fileServer)
-
+	http.Handle("/filtre.png", fileServer)
+	http.Handle("/poly_bg.png", fileServer)
+	http.Handle("/mail.png", fileServer)
+	http.Handle("/contact.css", fileServer)
 }
 
+//filters is the function to manage filters 
 func filters(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
 	minCrea, _ := strconv.Atoi(r.FormValue("minCrea"))
 	maxCrea, _ := strconv.Atoi(r.FormValue("maxCrea"))
@@ -31,6 +36,7 @@ func filters(artists, TabToPrint []structure.Artist, variable *template.Template
 			TabToPrint = append(TabToPrint, artists[i])
 		}
 	}
+	//without filters, it's executed with artists ([]Artist)
 	if minCrea == 1958 && maxCrea == 2015 && r.FormValue("OneMember") != "on" && r.FormValue("TwoMember") != "on" && r.FormValue("ThreeMember") != "on" && r.FormValue("FourMember") != "on" && r.FormValue("FiveMember") != "on" && r.FormValue("SixMember") != "on" && r.FormValue("SevenMember") != "on" {
 		variable.Execute(w, artists)
 	} else {
@@ -38,6 +44,7 @@ func filters(artists, TabToPrint []structure.Artist, variable *template.Template
 	}
 }
 
+//searchBar is the function to manage the search bar 
 func searchBar(artists, TabToPrint []structure.Artist, variable *template.Template, w http.ResponseWriter, r *http.Request) {
 	filter := r.FormValue("search")
 	for i := 0; i < len(artists); i++ {
@@ -78,20 +85,35 @@ func handleGroupieTracker(artists []structure.Artist) {
 		} else {
 			variable.Execute(w, artists)
 		}
-
 	})
 }
 
 //handleArtist is the handle function for the artist page (artists.html)
 func handleArtist(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/groupie-tracker/artist/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
-		ArtistPath := r.URL.Path[17:]
+		ArtistPath := r.URL.Path[24:]
 		IDArtist, _ := strconv.Atoi(ArtistPath)
 		IDArtist--
 
 		// Values
 		variable.Execute(w, artists[IDArtist])
+	})
+}
+
+//handleContact is the handle function for the contact page
+func handleContact(artists []structure.Artist) {
+	http.HandleFunc("/groupie-tracker/contact.html", func(w http.ResponseWriter, r *http.Request) {
+		variable, _ := template.ParseFiles("contact.html")
+		variable.Execute(w, artists[1])
+	})
+}
+
+//handleMerci is the handle function for the page which displays "merci"
+func handleMerci(artists []structure.Artist) {
+	http.HandleFunc("/groupie-tracker/contact.html/merci.html", func(w http.ResponseWriter, r *http.Request) {
+		variable, _ := template.ParseFiles("merci.html")
+		variable.Execute(w, artists[1])
 	})
 }
 
@@ -108,5 +130,7 @@ func main() {
 	jsonArtist := tools.ParseJSONArtsists("https://groupietrackers.herokuapp.com/api/artists")
 	handleGroupieTracker(jsonArtist)
 	handleArtist(jsonArtist)
+	handleContact(jsonArtist)
+	handleMerci(jsonArtist)
 	runServer()
 }

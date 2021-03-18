@@ -6,20 +6,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="header.css">
+    <link rel="stylesheet" type="text/css" href="footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="/logo.png"/>
 </head>
     
-
-<body class="accueil">
-    <header class="accueil">
+<body>
+    <header>
         <div id="divLogo">
             <a href="/groupie-tracker">
-                <img id="logo" src="logo.png">
+                <img id="logoImage" src="logo.png">
             </a>
-            <img id="filter" src="filtre.png">
+            <img id="filterImage" src="filtre.png">
+            <a href="/groupie-tracker/contact.html">
+                <img id="mailImage" src="mail.png">
+            </a>
         </div>
-        <form method="POST">
-            <input list="list" id="search" name="search" placeholder="Rechercher" autocomplete="off"/>
+        <form method="POST" id="formSearchBar">
+            <input list="list" id="searchInput" type="text" name="search" placeholder="Rechercher" autocomplete="off"/>
+            <div class="searchButton" href="#">
+                <img src="https://cdn.discordapp.com/attachments/785416497538269194/821762035599671356/search_logo.png" id="loupe">
+            </div>
             <datalist id="list">
                 {{range .}}
                     <option value="{{.Name}} -Name">
@@ -39,62 +47,106 @@
         </form>
     </header>
 
-    <div id="artistAndFilter">
-        <div id="filterPage">
-            <div id="filterPage2">
-                <p>membres</p>
-                <form method="GET">
-                    <div class="col1">
-                        <input type="checkbox" label="1" name="OneMember"> <label>1</label>
-                        <input type="checkbox" label="2" name="TwoMember">  <label>2</label>
-                        <input type="checkbox" label="3" name="ThreeMember"> <label>3</label>
-                        <input type="checkbox" label="4" name="FourMember"> <label>4</label>
-                        <input type="checkbox" label="5" name="FiveMember" > <label>5</label>
-                        <input type="checkbox" label="6" name="SixMember">  <label>6</label>
-                        <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
-                    </div>
-                <p>date de création</p>
-                <div class="col1">
-                    <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                    <output>1958</output>
-                </div>
-                <div class="col2">
-                    <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
-                    <output>2015</output>
-                </div>
-                <input name="submit" type="submit">
-                </form>
+    <div class="artistAndFilter">
+        <div class="filterMembers">
+        <form method="POST">
+            <h2>Combien de membres ?</h2>
+            <div>
+                <input type="checkbox" label="1" name="OneMember"> <label>1</label>
+                <input type="checkbox" label="2" name="TwoMember">  <label>2</label>
+                <input type="checkbox" label="3" name="ThreeMember"> <label>3</label>
+                <input type="checkbox" label="4" name="FourMember"> <label>4</label>
+                <input type="checkbox" label="5" name="FiveMember"> <label>5</label>
+                <input type="checkbox" label="6" name="SixMember">  <label>6</label>
+                <input type="checkbox" label="7" name="SevenMember"> <label>7</label>
             </div>
         </div>
-
-        <div id="artistcliquable">
-            {{range .}}
-                <a href="/groupie-tracker/{{.ID}}" class="cardArtist">
-                    <div class="face face1">
-                        <h2>{{.Name}}</h2>
-                    </div>
-                    <div class="face face2">
-                        <img src="{{.Image}}">
-                    </div>
-                </a>
-            {{end}}
+        <div class="filterDates">
+            <h2>Quelle date de création ?</h2>
+            <div>
+                <input type="range" name="minCrea" value="1958" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                <output>1958</output>
+            </div>
+            <div>
+                <input type="range" name="maxCrea" value="2015" min="1958" max="2015" oninput="this.nextElementSibling.value = this.value">
+                <output>2015</output>
+            </div>
         </div>
+        <div class="filterSubmit">
+            <input class="raise" name="submit" type="submit">
+        </div>
+        </form>
+    </div>
 
-    <footer>        
-        <p>Copyright &copy;  Groupie Tracker 2020-2021</p>
+    <div id="allCardArtist">
+    {{range .}}
+        <a href="/groupie-tracker/artist/{{.ID}}" class="cardArtist" id="{{.ID}}">
+            <div class="face face1">
+                <h2 class="artistName">{{.Name}}</h2>
+            </div>
+            <div class="face face2">
+                <img src="{{.Image}}">
+            </div>
+        </a>
+    {{end}}
+    </div>
+
+    <footer>
+        <svg viewBox="0 0 120 28">
+            <defs> 
+                <mask id="xxx">
+                    <circle cx="7" cy="12" r="40" fill="#fff" />
+                </mask>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="
+                        1 0 0 0 0  
+                        0 1 0 0 0  
+                        0 0 1 0 0  
+                        0 0 0 13 -9" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+                <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
+            </defs> 
+            
+            <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
+            <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>   
+            <g class="gooeff">
+            <circle class="drop drop1" cx="20" cy="2" r="1.8"  />
+            <circle class="drop drop2" cx="25" cy="2.5" r="1.5"  />
+            <circle class="drop drop3" cx="16" cy="2.8" r="1.2"  />
+            <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
+        </svg>    
+        <div class="copyright"><p>Copyright &copy;  Groupie Tracker 2020-2021</p></div>
     </footer>
-    
 </body>
 
 <script>
-    var bouton = document.querySelector("#filter");
-    var divFilter = document.querySelector("#filterPage");
-    bouton.addEventListener("click", openFilter);
-    function openFilter() {
-        if (divFilter.style.display == "inline") {
-            divFilter.style.display = "none"
+    var searchImage = document.querySelector("#formSearchBar");
+    var searchInput = document.querySelector("#searchInput");
+    var imageLoupe = document.querySelector("#loupe")
+    var filterImage = document.querySelector("#filterImage");
+    var artistAndFilter = document.querySelector(".artistAndFilter");
+
+    searchImage.addEventListener("mouseenter", openSearchBar);
+    filterImage.addEventListener("click", openFilters)
+
+    function openSearchBar() {
+        if (searchInput.style.width == "240px"){
+            searchInput.style.width = "0px"
+            searchInput.style.padding = "0"
+            imageLoupe.style.opacity = "100%"
         } else {
-            divFilter.style.display = "inline"
+            searchInput.style.width = "240px"
+            searchInput.style.padding = "0 6px"
+            imageLoupe.style.opacity = "0"
+        }
+    }
+    function openFilters() {
+        if (artistAndFilter.style.display == "grid"){
+            artistAndFilter.style.display = "none"
+        } else {
+            artistAndFilter.style.display = "grid"
         }
     }
 </script>

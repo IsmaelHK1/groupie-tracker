@@ -2,54 +2,118 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Groupie Tracker</title>
+    <title>{{.Name}}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/main.css">
-    <link rel="stylesheet" type="text/css" href="/artist.css">
+    <link rel="stylesheet" type="text/css" href="/artists.css">
+    <link rel="stylesheet" type="text/css" href="/header.css">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
+    <link rel="icon" type="image/png" href="/logo.png" />
 </head>
-<body>
-<header>
-    <div id="divLogo">
-        <a href="/groupie-tracker">
-            <img id="logo" src="/logo.png">
-        </a>
-    </div>
-    {{.Name}}
-</header>
-<div class="content">
-    <div class="leftbox">
-        <img src="{{.Image}}">
 
-        <h1>Date de création</h1>
-        <p class="leftText">{{.CreationDate}}</p>
-        <h1>Date du premier album</h1>
-        <p class="leftText">{{.FirstAlbum}}</p>
-    </div>
-        
-    <div class="rightbox">
-        <h1>Membres</h1> 
-        <ul>
-            {{range .Members}}
-                <li>{{.}}</li>
-            {{end}}
-        </ul>
-        <h1>Concerts</h1>
-        <ul>
-            {{range $index, $element := .TabRelation}}
-                <li>{{$index}}
+<body>
+    <header>
+        <div id="divLogo">
+            <a href="/groupie-tracker">
+                <img id="logoImage" src="/logo.png">
+            </a>
+            <a href="/groupie-tracker/contact.html">
+                <img id="mailImage" src="/mail.png">
+            </a>
+        </div>
+    </header>
+
+    <div class="AllCardInfos">
+        <div class="OneCardInfos">
+            <div class="BothCards TopCard">
+                <div class="Infos">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
+                    <h3>{{.Name}}</h3>
+                </div>
+            </div>
+            <div class="BothCards BottomCard">
+                <div class="Infos">
+                    <h2>Date de création</h2>
+                    <p>{{.CreationDate}}</p>
+                    <h2>Date du premier album</h2>
+                    <p >{{.FirstAlbum}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="OneCardInfos">
+            <div class="BothCards TopCard">
+                <div class="Infos">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
+                    <h3>Membres</h3>
+                </div>
+            </div>
+            <div class="BothCards BottomCard">
+                <div class="Infos">
                     <ul>
-                        {{range $element}}
-                            <li>{{.}}</li>
+                        {{range .Members}}
+                        <li>{{.}}</li>
                         {{end}}
                     </ul>
-                </li>
-            {{end}}
-        </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="OneCardInfos">
+            <div class="BothCards TopCard">
+                <div class="Infos">
+                    <img src="https://cdn.discordapp.com/attachments/785416497538269194/821701119461031946/elenavolf200500029.png">
+                    <h3>Concerts</h3>
+                </div>
+            </div>
+            <div class="BothCards BottomCard">
+                <div class="Infos">
+                    <ul>
+                    {{range $index, $element := .TabRelation}}
+                        <li>
+                            <h2>{{$index}}</h2>
+                            <ul>
+                            {{range $element}}
+                                <li>{{.}}</li>
+                            {{end}}
+                            </ul>
+                        </li>
+                    {{end}}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<footer>        
-    <p>Copyright &copy;  Groupie Tracker 2020-2021</p>
-</footer>
+
+    <footer>
+        <svg viewBox="0 0 120 28">
+            <defs> 
+                <mask id="xxx">
+                    <circle cx="7" cy="12" r="40" fill="#fff" />
+                </mask>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="
+                        1 0 0 0 0  
+                        0 1 0 0 0  
+                        0 0 1 0 0  
+                        0 0 0 13 -9" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+                <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
+            </defs> 
+            
+            <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
+            <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>   
+            <g class="gooeff">
+            <circle class="drop drop1" cx="20" cy="2" r="1.8"  />
+            <circle class="drop drop2" cx="25" cy="2.5" r="1.5"  />
+            <circle class="drop drop3" cx="16" cy="2.8" r="1.2"  />
+            <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
+        </svg>    
+        <div class="copyright"><p>Copyright &copy;  Groupie Tracker 2020-2021</p></div>
+    </footer>
+    
 </body>
 </html>

@@ -1,92 +1,20 @@
 * {
     margin:0;
     padding:0;
-    }
+}
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
-    background: black;
-    margin: 0px;
-    padding: 0px;
+    background-image: url("/poly_bg.png");
+    background-attachment: fixed;
     width: 100%;
     padding-bottom: 35px;
-}
-
-header {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 80px;
-    grid-gap: 10px;
-    text-align: center;
-    font-size : 50px;
-    font-family: cursive;
-    color:white;
-    width:100%;
-    background: #737dfe;
-}
-
-header #divLogo {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-header #divLogo a {
-    text-align: left;
-    float: left;
-    padding-left: 20px;
-}
-
-header #divLogo i {
-    height: 100px;
-    width: 100px;
-    float: left;
-    padding-top: 15px;
-}
-
-header #divLogo #logo {
-    float: left;
-    max-height: 70px;
-    margin: 5px;
-}
-
-header #divLogo #filter {
-    float: left;
-    max-height: 70px;
-    margin: 5px;
-    cursor: pointer;
-}
-
-header .filterImg {
-    max-height: 70px;
-    margin: 5px;
-}
-
-header #search {
-    grid-column: 2;
-    grid-row: 1;
-    margin: 20px;
-	border: none;
-	border-bottom: 1px solid white;
-	color: white;
-	background: rgb(0,210,255) 0% 0% no-repeat padding-box;
-    font-size: 25px;
-}
-
-footer{
-    background: #737dfe;
-    text-align: center;
-    clear: both;
-    position: fixed;
-    bottom: 0;
-    width:100%;
-    height:30px;
 }
 
 a {
     text-decoration: none;
 }
 
-h2 {
-    color: white;
-    font-family: 'Noto Sans JP', sans-serif;
+ul {
+    list-style:none;
 }
