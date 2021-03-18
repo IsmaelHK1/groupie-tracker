@@ -7,7 +7,6 @@ header {
 	font-size: 50px;
 	font-family: cursive;
 	width: 100%;
-	/* background: linear-gradient( 40deg, #00fffc 0%, #fc00ff 45%, #fffc00 100%); */
 	background-color: #2A2A2E
 }
 
@@ -33,6 +32,10 @@ header #divLogo #filterImage {
 	max-height: 70px;
 	margin: 5px;
 	cursor: pointer;
+}
+
+header #divLogo #mailImage {
+    width: 80px;
 }
 
 /* Search Bar  */

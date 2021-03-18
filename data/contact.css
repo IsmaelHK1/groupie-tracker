@@ -32,3 +32,11 @@
     box-shadow: 1px 1px 10px 10px white;
     transform: translateY(-0.25em);
 }
+
+.merci  {
+    text-decoration: none;
+    color: white;
+    font-size: xx-large;
+    font-weight: 900;
+    text-align: center;
+}

@@ -23,7 +23,7 @@ func serveFile() {
 	http.Handle("/logo.png", fileServer)
 	http.Handle("/filtre.png", fileServer)
 	http.Handle("/poly_bg.png", fileServer)
-	http.Handle("/favicon.png", fileServer)
+	http.Handle("/mail.png", fileServer)
 	http.Handle("/contact.css", fileServer)
 }
 
@@ -123,7 +123,6 @@ func handleMerci(artists []structure.Artist) {
 	})
 }
 
-
 //runServer sets the listenandserve port to 8080
 func runServer() {
 	fmt.Println("server is runing")
@@ -140,5 +139,5 @@ func main() {
 	handleContact(jsonArtist)
 	handleMerci(jsonArtist)
 	runServer()
-	
+
 }
