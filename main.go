@@ -73,7 +73,7 @@ func searchBar(artists, TabToPrint []structure.Artist, variable *template.Templa
 
 //handleGroupieTracker is the handle function for the main page (index.html)
 func handleGroupieTracker(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		variable, _ := template.ParseFiles("index.html")
 		var TabToPrint []structure.Artist
@@ -90,9 +90,9 @@ func handleGroupieTracker(artists []structure.Artist) {
 
 //handleArtist is the handle function for the artist page (artists.html)
 func handleArtist(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker/artist/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/artist/", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("artists.html")
-		ArtistPath := r.URL.Path[24:]
+		ArtistPath := r.URL.Path[8:]
 		IDArtist, _ := strconv.Atoi(ArtistPath)
 		IDArtist--
 
@@ -103,7 +103,7 @@ func handleArtist(artists []structure.Artist) {
 
 //handleContact is the handle function for the contact page
 func handleContact(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker/contact.html", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/contact.html", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("contact.html")
 		variable.Execute(w, artists[1])
 	})
@@ -111,7 +111,7 @@ func handleContact(artists []structure.Artist) {
 
 //handleMerci is the handle function for the page which displays "merci"
 func handleMerci(artists []structure.Artist) {
-	http.HandleFunc("/groupie-tracker/contact.html/merci.html", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/contact.html/merci.html", func(w http.ResponseWriter, r *http.Request) {
 		variable, _ := template.ParseFiles("merci.html")
 		variable.Execute(w, artists[1])
 	})

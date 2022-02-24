@@ -15,11 +15,11 @@
 <body>
     <header>
         <div id="divLogo">
-            <a href="/groupie-tracker">
+            <a href="/">
                 <img id="logoImage" src="logo.png">
             </a>
             <img id="filterImage" src="filtre.png">
-            <a href="/groupie-tracker/contact.html">
+            <a href="/contact.html">
                 <img id="mailImage" src="mail.png">
             </a>
         </div>
@@ -80,7 +80,7 @@
 
     <div id="allCardArtist">
     {{range .}}
-        <a href="/groupie-tracker/artist/{{.ID}}" class="cardArtist" id="{{.ID}}">
+        <a href="/artist/{{.ID}}" class="cardArtist" id="{{.ID}}">
             <div class="face face1">
                 <h2 class="artistName">{{.Name}}</h2>
             </div>
