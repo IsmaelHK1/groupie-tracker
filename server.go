@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
+	"os"
 
 	"groupie-tracker/structure"
 	"groupie-tracker/tools"
