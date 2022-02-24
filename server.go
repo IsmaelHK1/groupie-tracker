@@ -120,9 +120,11 @@ func handleMerci(artists []structure.Artist) {
 //runServer sets the listenandserve port to 8080
 func runServer() {
 	fmt.Println("server is runing")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatal(err)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
 	}
+	http.ListenAndServe(":"+port, nil)
 }
 
 func main() {
